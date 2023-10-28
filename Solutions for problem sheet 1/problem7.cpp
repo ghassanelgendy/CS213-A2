@@ -34,12 +34,38 @@ void printsol(const vector<dominoT> & chain) {
 }
 
 int main() {
-    vector<dominoT> dominoSet1 = { {6, 1},{2, 6}, {1, 4}, {4, 4}, {4, 3}};
+    vector<dominoT> set;
+    int n;
+    cout << "Enter number of dominos\n";
+    cin >> n;
+    cout << "Enter the left and right dots of each domino:\n";
+    for(int i = 0; i < n; ++i) {
+        dominoT d;
+        cout<<"left dots:\n";
+        cin >> d.leftDots ;
+        cout<<"right dots:\n";
+        cin>> d.rightDots;
+        set.push_back(d);
+    }
+
     vector<dominoT> chain;
-    if (FormsDominoChain(dominoSet1, chain)) {
+    if (FormsDominoChain(set, chain)) {
         cout<<"true\n";
         printsol(chain);
     } else {
         cout<<"false\n";
     }
 }
+//sheet test case input
+//5
+//1
+//4
+//2
+//6
+//4
+//4
+//6
+//1
+//4
+//3
+//{6, 1},{2, 6}, {1, 4}, {4, 4}, {4, 3}
