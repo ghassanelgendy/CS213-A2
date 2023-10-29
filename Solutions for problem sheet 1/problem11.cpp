@@ -1,11 +1,19 @@
+// File: problem11.cpp
+// Purpose: Solution for sheet 1
+// Author: Ghassan Tarek Elgendy
+// Section: S21
+// ID: 20220239
+// TA: Rana AbdelKader
+// Date: 29 Oct 2023
+
 #include <bits/stdc++.h>
-/*11. File Comparison. You are asked to write a file comparison facility that asks the user for the names of
-        two files to compare. It also asks the user if he wants a character by character comparison or word by
-word comparison.
+/*
 (a) In case of character by character comparison, the program will display if the files are identical, or it
-        will display the number and the content of the first line that is different. White spaces are compared.
+will display the number and the content of the first line that is different. White spaces are compared.
+
 (b) In case of word by word, white spaces, tabs and new lines are ignored and files are compared word
-        by word. The result is either identical or the first different word and the line that contains it.*/
+by word. The result is either identical or the first different word and the line that contains it.
+*/
 using namespace std;
 bool isSame{true};
 ifstream f1;

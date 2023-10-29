@@ -1,3 +1,11 @@
+// File: problem5.cpp
+// Purpose: Solution for sheet 1
+// Author: Ghassan Tarek Elgendy
+// Section: S21
+// ID: 20220239
+// TA: Rana AbdelKader
+// Date: 29 Oct 2023
+
 #include <bits/stdc++.h>
 
 using namespace std;
