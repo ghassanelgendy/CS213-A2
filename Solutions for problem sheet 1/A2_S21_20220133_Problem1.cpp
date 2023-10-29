@@ -1,3 +1,11 @@
+// File: problem1.cpp
+// Purpose: reads in a sentence of up to 100 characters and outputs the sentence with spacing
+//          corrected and with letters corrected for capitalization.
+// Author: Rawan Ehab
+// Section: S21
+// ID: 20220133
+// TA: Rana Abdelkader
+// Date: 12 Oct 2023
 #include <iostream>
 #include <string>
 

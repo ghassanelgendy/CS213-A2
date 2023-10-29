@@ -1,3 +1,10 @@
+// File: problem4.cpp
+// Purpose: program that uses the sieve of Eratosthenes to generate a list of the primes between 2 and a given number n.
+// Author: Rawan Ehab
+// Section: S21
+// ID: 20220133
+// TA: Rana Abdelkader
+// Date: 12 Oct 2023
 #include <iostream>
 #include <vector>
 

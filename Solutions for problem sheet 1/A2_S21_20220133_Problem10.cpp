@@ -1,3 +1,11 @@
+// File: problem10.cpp
+// Purpose: program that takes a file in Arabic with some message or post. Then, it changes words that could be
+//          censored other alternatives.
+// Author: Rawan Ehab
+// Section: S21
+// ID: 20220133
+// TA: Rana Abdelkader
+// Date: 12 Oct 2023
 #include <iostream>
 #include <vector>
 #include <fstream>

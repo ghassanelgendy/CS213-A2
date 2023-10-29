@@ -1,3 +1,11 @@
+// File: problem7.cpp
+// Purpose: program that a) returns true if it's possible to build a chain consisting of every domino
+//                       b)Print the solution of the domino chain
+// Author: Rawan Ehab
+// Section: S21
+// ID: 20220133
+// TA: Rana Abdelkader
+// Date: 12 Oct 2023
 #include <iostream>
 #include <vector>
 using namespace std;
