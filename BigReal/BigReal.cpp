@@ -31,11 +31,65 @@ BigReal::BigReal(const string& real)
 		integer = '0';
 		fraction = '0';
 	}
+    //	if (regex_match(real, regex("[+-]?\\d*.?\\d+"))) {
+//		if (!(real.find('.') == string::npos)) isDot = true;
+//		if (real[0] == '-' || real[0] == '+') {
+//            integer = real.substr(1, real.find('.'));
+//			if(real[0] == '-') sign = '-';
+//
+//		}
+//
+//        integer = real.substr(0, real.find('.'));
+//		if (isDot) fraction = real.substr(integer.size() + 1, real.size() - 1);
+//	}
+//	else {
+//		integer = '0';
+//		fraction = '0';
+//	}
 }
 
-BigReal BigReal::operator+(const BigReal& otherBigReal)
+BigReal BigReal::operator+( BigReal& otherBigReal)
+
 {
-	return BigReal();
+    BigReal value;
+    if (integer.size() > otherBigReal.integer.size()){
+        otherBigReal.integer.insert(0, integer.size() - otherBigReal.integer.size(), '0');
+    }
+    else {
+        integer.insert(0, otherBigReal.integer.size()-integer.size() , '0');
+    }
+    if (fraction.size() > otherBigReal.fraction.size()){
+        otherBigReal.fraction.insert(otherBigReal.fraction.size(), fraction.size() - otherBigReal.fraction.size(), '0');
+    }
+    else {
+        fraction.insert(fraction.size(), otherBigReal.fraction.size() - fraction.size()  , '0');
+    }
+
+
+
+
+
+    int carry =0;
+    for (int i = fraction.size(); i >0 ; --i) {
+        int res ;
+       res = (int)(fraction[i])+(int)(otherBigReal.fraction[i])+carry;
+        carry=0;                                                       //    .24587
+        if (res>9){                                                    //    .69540
+            carry++;
+            res %= 10;
+        }
+        /*value.fraction.insert(0,1,(char)res);*/
+		value.fraction = (char)res + value.fraction;
+
+
+    }
+
+    cout<<value.integer<<'.'<<value.fraction<<endl;
+//    cout<<otherBigReal.integer<<'.'<<otherBigReal.fraction<<endl;
+
+
+
+	return value;
 }
 
 BigReal BigReal::operator-(const BigReal& otherBigReal)

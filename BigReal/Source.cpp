@@ -10,12 +10,19 @@
 using namespace std;
 int main()
 {
-    BigReal R;
-    BigReal K;
-    BigReal w; //from default constructor
-    cout << w;
-    K = "43"; //from assignment operator
-    cin >> R; //the insertion operator
-    cout << "K = " << K << '\n'<< //extraction operator
-            "R = " << R;
+BigReal R1("0.69540");
+BigReal R2("0.24587");
+BigReal r3;
+r3 = R1 + R2;
+
+
+
+    //BigReal R;
+    //BigReal K;
+    //BigReal w; //from default constructor
+    //cout << w;
+    //K = "43"; //from assignment operator
+    //cin >> R; //the insertion operator
+    //cout << "K = " << K << '\n'<< //extraction operator
+    //        "R = " << R;
 }
