@@ -19,12 +19,12 @@ private:
 public:
 	BigReal(); //default constructor
 	BigReal(const string& real); //parameterized constructor
-	BigReal operator +(const BigReal& otherBigReal); //addition opertator overload
-	BigReal operator -(const BigReal& otherBigReal); //substraction opertator overload
-	BigReal operator ==(const BigReal& otherBigReal); //equality opertator overload
-	BigReal operator >(const BigReal& otherBigReal); //greater than opertator overload
-	BigReal operator <(const BigReal& otherBigReal); //smaller than opertator overload
-	BigReal& operator =(const string& BigR); //assignment opertator overload
+	BigReal operator +(const BigReal& otherBigReal); //addition operator overload
+	BigReal operator -(const BigReal& otherBigReal); //substraction operator overload
+	BigReal operator ==(const BigReal& otherBigReal); //equality operator overload
+	BigReal operator >(const BigReal& otherBigReal); //greater than operator overload
+	BigReal operator <(const BigReal& otherBigReal); //smaller than operator overload
+	BigReal& operator =(const string& BigR); //assignment operator overload
 	friend istream& operator >>(istream& input, BigReal& bigR); //friend function (bec we're using istream) insertion operator overload
 	friend ostream& operator<<(ostream& output, const BigReal& BigR); //friend function (bec we're using ostream) extraction operator overload
 };
