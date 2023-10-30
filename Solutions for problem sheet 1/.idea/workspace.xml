@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="CMakeSettings">
     <configurations>
       <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a78444a-45f6-4bc9-b312-a52d36221deb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/problem11.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/problem11.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/problem2.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/problem2.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/problem5.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/problem5.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/problem8.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/problem8.cpp" afterDir="false" />
+    <list default="true" id="2a78444a-45f6-4bc9-b312-a52d36221deb" name="Changes" comment="Modify Problem 10">
+      <change beforePath="$PROJECT_DIR$/../BigReal/.vs/BigReal/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/.vs/BigReal/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/.vs/BigReal/v17/Browse.VC.db" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/.vs/BigReal/v17/Browse.VC.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/.vs/BigReal/v17/ipch/AutoPCH/df16fb41da7b2c93/BIGREAL.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/.vs/BigReal/v17/ipch/AutoPCH/df16fb41da7b2c93/BIGREAL.ipch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/BigReal.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/BigReal.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/BigReal.h" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/BigReal.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/Source.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/Source.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.log" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.tlog/CL.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.tlog/CL.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/x64/Debug/BigReal.tlog/CL.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/x64/Debug/Source.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/x64/Debug/Source.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/x64/Debug/vc143.idb" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/x64/Debug/vc143.idb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BigReal/x64/Debug/vc143.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../BigReal/x64/Debug/vc143.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Solutions for problem sheet 1.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,15 +43,29 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "ghassanelgendy"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="5e156d48-304d-4094-ae1c-4813f19d888a" />
+        <option name="url" value="https://github.com/ghassanelgendy/CS213-A2.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
     <option name="majorVersion" value="2023" />
     <option name="minorVersion" value="2.2" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2XQQldcGLlIIrGuz3GjbZRn6DDc" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -47,9 +81,21 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="A2_S21_20220133_Problem10.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Solutions for problem sheet 1" TARGET_NAME="A2_S21_20220133_Problem10.cpp" CONFIG_NAME="A2_S21_20220133_Problem10.cpp">
+      <option name="sourceFile" value="A2_S21_20220133_Problem10.cpp" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -59,10 +105,24 @@
       <option name="presentableId" value="Default" />
       <updated>1698558975584</updated>
       <workItem from="1698558976935" duration="7000" />
+      <workItem from="1698667180732" duration="615000" />
     </task>
+    <task id="LOCAL-00001" summary="Modify Problem 10">
+      <option name="closed" value="true" />
+      <created>1698667415473</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1698667415473</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Modify Problem 10" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modify Problem 10" />
   </component>
 </project>
