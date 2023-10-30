@@ -10,7 +10,7 @@
 #include <string>
 #include "BigReal.h"
 
-BigReal::BigReal() : integer("0"), fraction("0")
+BigReal::BigReal() : integer(""), fraction("")
 {
 }
 
@@ -19,7 +19,7 @@ BigReal::BigReal(const string& real)
 	if (regex_match(real, regex("[+-]?\\d*.?\\d+"))) {
 		string temp;
 		temp = real;
-		if (!(real.find('.') == string::npos)) isDot = true;
+		if ((real.find('.') == string::npos)) isDot = false;
 		if (real[0] == '-' || real[0] == '+') {
 			temp = real.substr(1, real.size() - 1);
 			if(real[0] == '-') sign = '-';
@@ -31,27 +31,11 @@ BigReal::BigReal(const string& real)
 		integer = '0';
 		fraction = '0';
 	}
-    //	if (regex_match(real, regex("[+-]?\\d*.?\\d+"))) {
-//		if (!(real.find('.') == string::npos)) isDot = true;
-//		if (real[0] == '-' || real[0] == '+') {
-//            integer = real.substr(1, real.find('.'));
-//			if(real[0] == '-') sign = '-';
-//
-//		}
-//
-//        integer = real.substr(0, real.find('.'));
-//		if (isDot) fraction = real.substr(integer.size() + 1, real.size() - 1);
-//	}
-//	else {
-//		integer = '0';
-//		fraction = '0';
-//	}
 }
 
-BigReal BigReal::operator+( BigReal& otherBigReal)
-
-{
+BigReal BigReal::operator+( BigReal& otherBigReal){
     BigReal value;
+	
     if (integer.size() > otherBigReal.integer.size()){
         otherBigReal.integer.insert(0, integer.size() - otherBigReal.integer.size(), '0');
     }
@@ -64,36 +48,34 @@ BigReal BigReal::operator+( BigReal& otherBigReal)
     else {
         fraction.insert(fraction.size(), otherBigReal.fraction.size() - fraction.size()  , '0');
     }
-
-
-
-
-
-    int carry =0;
-    for (int i = fraction.size(); i >0 ; --i) {
+	int carry = 0;
+    for (int i = fraction.size()-1; i >= 0 ; --i) {
         int res ;
-       res = (int)(fraction[i])+(int)(otherBigReal.fraction[i])+carry;
-        carry=0;                                                       //    .24587
-        if (res>9){                                                    //    .69540
+		res = (int)((fraction[i])-'0') + (int)((otherBigReal.fraction[i])-'0') + carry;
+        carry=0;																			                                       
+        if (res > 9){                                                 
             carry++;
             res %= 10;
         }
-        /*value.fraction.insert(0,1,(char)res);*/
-		value.fraction = (char)res + value.fraction;
-
-
+		value.fraction.insert(0,1,char(res)+'0');
     }
-
-    cout<<value.integer<<'.'<<value.fraction<<endl;
-//    cout<<otherBigReal.integer<<'.'<<otherBigReal.fraction<<endl;
-
-
+	for (int i = integer.size() - 1; i >= 0; --i) {
+		int res;
+		res = (int)((integer[i]) - '0') + (int)((otherBigReal.integer[i]) - '0') + carry;
+		carry = 0;
+		if (res > 9) {
+			carry++;
+			res %= 10;
+		}
+		value.integer.insert(0, 1, char(res) + '0');
+	}
 
 	return value;
 }
 
 BigReal BigReal::operator-(const BigReal& otherBigReal)
 {
+
 	return BigReal();
 }
 
@@ -121,7 +103,6 @@ BigReal& BigReal::operator =(const string& BigR) {
 	return *this;
 }
 
-
 istream& operator>>(istream& input, BigReal& bigR)
 {
 	string input_str;
@@ -132,7 +113,7 @@ istream& operator>>(istream& input, BigReal& bigR)
 
 ostream& operator<<(ostream& output, const BigReal& BigR)
 {
-	if (BigR.isDot) output << BigR.sign << BigR.integer << '.' << BigR.fraction;
-	else output << BigR.sign << BigR.integer;
+	if (BigR.isDot) output <<  BigR.integer << '.' << BigR.fraction;
+	else output << BigR.integer;
 	return output;
 }

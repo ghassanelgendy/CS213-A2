@@ -12,14 +12,14 @@ using namespace std;
 class BigReal
 {
 private:
-	bool isDot = false;
+	bool isDot = true;
 	char sign = '+';
 	string integer;
 	string fraction; 
 public:
 	BigReal(); //default constructor
 	BigReal(const string& real); //parameterized constructor
-	BigReal operator +( BigReal& otherBigReal); //addition operator overload
+	BigReal operator +(BigReal& otherBigReal); //addition operator overload
 	BigReal operator -(const BigReal& otherBigReal); //substraction operator overload
 	BigReal operator ==(const BigReal& otherBigReal); //equality operator overload
 	BigReal operator >(const BigReal& otherBigReal); //greater than operator overload

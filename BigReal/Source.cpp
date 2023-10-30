@@ -10,13 +10,11 @@
 using namespace std;
 int main()
 {
-BigReal R1("0.69540");
-BigReal R2("0.24587");
-BigReal r3;
-r3 = R1 + R2;
-
-
-
+  
+    BigReal n1("11.9000000000000000000000000000000001");
+    BigReal n2("2333333333339.1134322222222292");
+    BigReal n3 = n1 + n2;
+    cout << n3;
     //BigReal R;
     //BigReal K;
     //BigReal w; //from default constructor
