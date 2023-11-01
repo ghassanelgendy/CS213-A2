@@ -15,7 +15,7 @@
 using namespace std;
 
 vector<string> postwords() {
-    ifstream file(".//problem10Post.txt");
+    ifstream file("Sheet[1] Solution\\problem10Post.txt");
     if (!file) {
         cout << "Unable to find/open file: problem10Post.txt , please check file directory and try again.";
         exit(0);
@@ -31,7 +31,7 @@ vector<string> postwords() {
 vector<string> words = postwords();
 
 map<string, vector<string>> lookuptable() {
-    ifstream file(".//problem10LookUPTable.txt");
+    ifstream file("Sheet[1] Solution\\problem10LookUPTable.txt");
     if (!file) {
         cout << "Unable to find/open file: problem10LookUPTable.txt , please check file directory and try again.";
         exit(0);
@@ -71,6 +71,7 @@ void censor(){
 
 void censoredpost() {
     ofstream file("problem10CensoredPost.txt");
+    cout<<"post successfully censored";
 
     for ( auto& word : words) {
         file << word << ' ';
@@ -80,6 +81,7 @@ void censoredpost() {
 int main() {
     censor();
     censoredpost();
+
     return 0;
 
 
