@@ -10,9 +10,7 @@
 using namespace std;
 int main()
 {
-    BigReal r, s, d;
-    r = ".5";
-    s = "23.";
-   
-   cout << (r+s);
+	BigReal x("1"), y("1");
+	cout<<x - y ;
+
 }

@@ -8,10 +8,20 @@
 #include <iostream>
 #include <regex>
 #include <string>
+#include <stdlib.h>
 #include "BigReal.h"
 
-BigReal::BigReal() : integer(""), fraction(""), isDot(true), sign('+'),isValidReal(false)
+BigReal::BigReal() : integer(""), fraction(""), isDot(true), sign('+')
 {
+
+}
+bool BigReal::isValidReal(const string& realString)
+{
+	if (regex_match(realString, regex("[+-]?\\d*\\.?\\d*"))) return true; //using regex to validate the number
+	else {
+		cout << "Invalid input\nError code 900";
+		exit(900);
+	}
 }
 
 BigReal BigReal::removeLead()
@@ -27,32 +37,9 @@ BigReal BigReal::removeLead()
 	return *this;
 }
 
-BigReal::BigReal(const string& real): isDot(true), sign('+'), isValidReal(false)
+BigReal::BigReal(const string& realString): isDot(true), sign('+')
 {
-	if (regex_match(real, regex("[+-]?\\d*.?\\d+"))) {
-		string temp;
-		temp = real;
-		if ((real.find('.') == string::npos)) isDot = false;
-		if (real[0] == '-' || real[0] == '+') {
-			temp = real.substr(1, real.size() - 1);
-			if (real[0] == '-') sign = '-';
-		}
-		integer = temp.substr(0, temp.find('.'));
-		if (isDot) fraction = temp.substr(integer.size() + 1, temp.size() - 1);
-		//============== we now have a good lookin int and frac
-		while (integer[0] == '0' && integer.size() != 1) //delete leading zeros
-		{
-			integer.erase(0, 1);
-		}
-		while (!fraction.empty() && fraction[fraction.size() - 1] == '0' && fraction[fraction.size() - 2] == '0') //delete leading zeros
-		{
-			fraction.erase(fraction.size() - 1, 1);
-		}
-	}
-	else {
-		integer = '0';
-		fraction = '0';
-	}
+	*this = realString;
 }
 
 BigReal BigReal::operator+(BigReal& otherBigReal){
@@ -62,7 +49,7 @@ BigReal BigReal::operator+(BigReal& otherBigReal){
     for (int i = fraction.size()-1; i >= 0 ; --i) {
         int res ;
 		res = (int)((fraction[i])-'0') + (int)((otherBigReal.fraction[i])-'0') + carry;
-        carry=0;																			                                       
+        carry=0;							                                       
         if (res > 9){                                                 
             carry++;
             res %= 10;
@@ -79,26 +66,22 @@ BigReal BigReal::operator+(BigReal& otherBigReal){
 		}
 		value.integer.insert(0, 1, char(res) + '0');
 	}
-
 	return value;
 }
 
-BigReal BigReal::operator-(const BigReal& otherBigReal)
+BigReal BigReal::operator-(BigReal& other)
 {
+	BigReal value;
+	Pad(*this, other);
 
-	BigReal res;
-	//complement 9
-	for (size_t i = fraction.size() - 1; i >= 0; i--)
-	{
+	string intComp;
+	string fracComp;
+	for (char digit : other.integer) {
+		intComp += '9' - (digit - '0') + '0';
+	}
 	
 
-	}
-	for (size_t i = 0; i < integer.size()-1; i++)
-	{
-
-	}
-	return *this;
-
+	return value;
 }
 
 bool BigReal::operator==(BigReal& otherBigReal)
@@ -111,9 +94,7 @@ bool BigReal::operator==(BigReal& otherBigReal)
 
 bool BigReal::operator>(BigReal& otherBigReal)
 {
-	
 	bool yes{ false };
-	
 	for (size_t i = 0; i < 6; i++)
 	{
 
@@ -145,12 +126,32 @@ bool BigReal::operator<(BigReal& otherBigReal)
 	return (!(*this > otherBigReal) && !(*this == otherBigReal));
 }
 
-BigReal& BigReal::operator =(const string& BigR) {
-	BigReal temp(BigR);
-	integer = move(temp.integer);
-	fraction = move(temp.fraction);
-	isDot = move(temp.isDot);
-	sign = move(temp.sign);
+
+
+BigReal& BigReal::operator =(const string& realString) {
+	if (isValidReal(realString)) {
+		string temp;
+		temp = realString;
+		if ((realString.find('.') == string::npos)) isDot = false;
+		if (realString[0] == '-' || realString[0] == '+') {
+			temp = realString.substr(1, realString.size() - 1);
+			if (realString[0] == '-') sign = '-';
+		}
+		integer = temp.substr(0, temp.find('.'));
+		if (isDot) fraction = temp.substr(integer.size() + 1, temp.size() - 1);
+		//we now have a good lookin int and frac
+		while (integer[0] == '0' && integer.size() >= 1) //delete leading zeros
+		{
+			integer.erase(0, 1);
+		}
+		while (!fraction.empty() && fraction[fraction.size() - 1] == '0') //delete leading zeros
+		{
+			fraction.erase(fraction.size() - 1, 1);
+		}
+		if (integer.empty()) integer = '0';
+		if (fraction.empty()) fraction= '0';
+
+	}
 	return *this;
 }
 
@@ -165,9 +166,7 @@ istream& operator>>(istream& input, BigReal& bigR)
 ostream& operator<<(ostream& output, const BigReal& BigR)
 {
 	if (BigR.sign == '-') output << BigR.sign;
-
 	if (BigR.isDot) output << BigR.integer << '.' << BigR.fraction;
-
 	else output << BigR.integer;
 	return output;
 }
