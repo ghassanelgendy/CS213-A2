@@ -79,8 +79,6 @@ BigReal BigReal::operator-(BigReal& other)
 	for (char digit : other.integer) {
 		intComp += '9' - (digit - '0') + '0';
 	}
-	
-
 	return value;
 }
 
