@@ -68,6 +68,61 @@ BigReal BigReal::operator+(BigReal& otherBigReal){
 	}
 	return value;
 }
+BigReal BigReal::operator-(BigReal& otherBigReal) {
+	BigReal value;
+	Pad(*this, otherBigReal);
+	int borrow = 0;
+
+	
+	if (this->sign == otherBigReal.sign) {
+		if (this->sign == '+') {   // both positive
+			if (*this > otherBigReal || *this == otherBigReal) {
+				for (int i = fraction.size() - 1; i >= 0; --i) {
+					int res = (fraction[i] - '0') - (otherBigReal.fraction[i] - '0') - borrow;
+					borrow = 0;
+					if (res < 0) {
+						borrow++;
+						res += 10;
+					}
+					value.fraction.insert(0, 1, res + '0');
+				}
+				for (int i = integer.size() - 1; i >= 0; --i) {
+					int res = (integer[i] - '0') - (otherBigReal.integer[i] - '0') - borrow;
+					borrow = 0;
+					if (res < 0) {
+						borrow++;
+						res += 10;
+					}
+					value.integer.insert(0, 1, res + '0');
+				}
+			}
+			else {//both positive but other is bigger
+				value = otherBigReal - *this;// Swap and negate result
+				value.sign = '-';
+			}
+		}
+		else {// both negative
+			this->sign = '+';
+			otherBigReal.sign = '+';
+			value = otherBigReal - *this;
+		}
+	}
+	else {
+		// If different signs, convert subtraction to addition
+		if (this->sign == '+') {
+			otherBigReal.sign = '+';
+			value = *this + otherBigReal;
+		}
+		else {
+			this->sign = '+';
+			value = *this + otherBigReal;
+			value.sign = '-';
+		}
+	}
+
+	return value;
+}
+
 
 bool BigReal::operator==(BigReal& otherBigReal)
 {
