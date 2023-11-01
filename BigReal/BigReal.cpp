@@ -17,20 +17,15 @@ BigReal::BigReal() : integer(""), fraction("")
 BigReal::BigReal(const string& real)
 {
 	if (regex_match(real, regex("[+-]?\\d*.?\\d+"))) {
+		string temp;
+		temp = real;
 		if ((real.find('.') == string::npos)) isDot = false;
 		if (real[0] == '-' || real[0] == '+') {
+			temp = real.substr(1, real.size() - 1);
 			if (real[0] == '-') sign = '-';
-			integer = real.substr(1, real.find('.') - 1);
-			if (isDot) fraction = real.substr(integer.size() + 2);
 		}
-		else {
-			integer = real.substr(0, real.find('.'));
-			if (isDot) fraction = real.substr(integer.size() + 1);
-		}
-		if (!isDot && sign == '-') { 
-			integer = '-' + integer;
-		}
-
+		integer = temp.substr(0, temp.find('.'));
+		if (isDot) fraction = temp.substr(integer.size() + 1, temp.size() - 1);
 	}
 	else {
 		integer = '0';
