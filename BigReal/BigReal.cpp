@@ -69,30 +69,22 @@ BigReal BigReal::operator+(BigReal& otherBigReal){
 	return value;
 }
 
-BigReal BigReal::operator-(BigReal& other)
-{
-	BigReal value;
-	Pad(*this, other);
-
-	string intComp;
-	string fracComp;
-	for (char digit : other.integer) {
-		intComp += '9' - (digit - '0') + '0';
-	}
-	return value;
-}
-
 bool BigReal::operator==(BigReal& otherBigReal)
 {
-	 
 	return (this->removeLead().integer == otherBigReal.removeLead().integer &&
 			this->removeLead().fraction == (otherBigReal.removeLead().fraction) &&
 			this->sign == otherBigReal.sign);
 }
 
+
 bool BigReal::operator>(BigReal& otherBigReal)
 {
-	bool yes{ false };
+	if (this->sign == '+' && otherBigReal.sign=='-') return true;
+	if (this->sign == '-' && otherBigReal.sign == '+') return false;
+	if (this->sign == '-' && otherBigReal.sign == '-') {
+		swap(*this, otherBigReal);
+	}
+	bool yes { false };
 	for (size_t i = 0; i < 6; i++)
 	{
 

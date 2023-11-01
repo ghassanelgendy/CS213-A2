@@ -10,7 +10,6 @@
 using namespace std;
 int main()
 {
-	BigReal x("1"), y("1");
-	cout<<x - y ;
-
+	BigReal x("-6.6"), y("7.4"); //0.8
+	cout << "MINUS: " << (x - y);
 }
