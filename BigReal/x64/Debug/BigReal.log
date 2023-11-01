@@ -1,6 +1,2 @@
-﻿  BigReal.cpp
-C:\Users\Ghassan Elgendy\Github\CS213-A2\BigReal\BigReal.cpp(52,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Ghassan Elgendy\Github\CS213-A2\BigReal\BigReal.cpp(62,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Source.cpp
-  Generating Code...
+﻿  Source.cpp
   BigReal.vcxproj -> C:\Users\Ghassan Elgendy\Github\CS213-A2\BigReal\x64\Debug\BigReal.exe
