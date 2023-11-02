@@ -26,11 +26,11 @@ bool BigReal::isValidReal(const string& realString)
 
 BigReal BigReal::removeLead()
 {
-	while (integer[0] == '0' && integer[1] == '0') //delete leading zeros
+	while (integer[0] == '0' && integer[1] == '0') //delete leading zeros from thr integer part
 	{
 		integer.erase(0, 1);
 	}
-	while (!fraction.empty() && fraction[fraction.size() - 1] == '0' && fraction[fraction.size() - 2] != '0') //delete leading zeros
+	while (!fraction.empty() && fraction[fraction.size() - 1] == '0' && fraction[fraction.size() - 2] != '0') //delete leading zeros from the fraction part
 	{
 		fraction.erase(fraction.size() - 1, 1);
 	}
@@ -43,6 +43,7 @@ BigReal::BigReal(const string& realString): isDot(true), sign('+')
 }
 
 BigReal BigReal::operator+(BigReal& otherBigReal){
+
     BigReal value;
 	Pad(*this, otherBigReal);
 	int carry = 0;
@@ -50,7 +51,7 @@ BigReal BigReal::operator+(BigReal& otherBigReal){
         int res ;
 		res = (int)((fraction[i])-'0') + (int)((otherBigReal.fraction[i])-'0') + carry;
         carry=0;							                                       
-        if (res > 9){                                                 
+        if (res > 9){ //condition to  increment the carry and take only the last digit if the result is big than 9                                                 
             carry++;
             res %= 10;
         }
@@ -73,10 +74,15 @@ BigReal BigReal::operator-(BigReal& otherBigReal) {
 	Pad(*this, otherBigReal);
 	int borrow = 0;
 
-	
+	if (otherBigReal > *this) {
+		value = otherBigReal;
+		value.sign = '-';
+		return value;
+	}
+
 	if (this->sign == otherBigReal.sign) {
-		if (this->sign == '+') {   // both positive
-			if (*this > otherBigReal || *this == otherBigReal) {
+		if (this->sign == '+') { // both positive
+			if (*this > otherBigReal || *this == otherBigReal) { // first is bigger or equal to
 				for (int i = fraction.size() - 1; i >= 0; --i) {
 					int res = (fraction[i] - '0') - (otherBigReal.fraction[i] - '0') - borrow;
 					borrow = 0;
@@ -86,6 +92,8 @@ BigReal BigReal::operator-(BigReal& otherBigReal) {
 					}
 					value.fraction.insert(0, 1, res + '0');
 				}
+
+				borrow = 0;
 				for (int i = integer.size() - 1; i >= 0; --i) {
 					int res = (integer[i] - '0') - (otherBigReal.integer[i] - '0') - borrow;
 					borrow = 0;
@@ -96,12 +104,12 @@ BigReal BigReal::operator-(BigReal& otherBigReal) {
 					value.integer.insert(0, 1, res + '0');
 				}
 			}
-			else {//both positive but other is bigger
-				value = otherBigReal - *this;// Swap and negate result
+			else { // both positive but other is bigger
+				value = otherBigReal - *this; // Swap and negate result
 				value.sign = '-';
 			}
 		}
-		else {// both negative
+		else { // both negative
 			this->sign = '+';
 			otherBigReal.sign = '+';
 			value = otherBigReal - *this;
@@ -123,20 +131,19 @@ BigReal BigReal::operator-(BigReal& otherBigReal) {
 	return value;
 }
 
-
 bool BigReal::operator==(BigReal& otherBigReal)
 {
-	return (this->removeLead().integer == otherBigReal.removeLead().integer &&
-			this->removeLead().fraction == (otherBigReal.removeLead().fraction) &&
-			this->sign == otherBigReal.sign);
+	return (this->removeLead().integer == otherBigReal.removeLead().integer &&    //checks if integer part is equal
+			this->removeLead().fraction == (otherBigReal.removeLead().fraction) &&      //checks if fraction part is equal
+			this->sign == otherBigReal.sign);            //checks if signs are equal
 }
 
 
 bool BigReal::operator>(BigReal& otherBigReal)
-{
-	if (this->sign == '+' && otherBigReal.sign=='-') return true;
-	if (this->sign == '-' && otherBigReal.sign == '+') return false;
-	if (this->sign == '-' && otherBigReal.sign == '-') {
+{ 
+	if (this->sign == '+' && otherBigReal.sign=='-') return true;       //if first is positive and second is negative
+	if (this->sign == '-' && otherBigReal.sign == '+') return false;    //if first is negative and second is positive
+	if (this->sign == '-' && otherBigReal.sign == '-') {      //if both are negative , we swap them to check
 		swap(*this, otherBigReal);
 	}
 	bool yes { false };
@@ -145,18 +152,18 @@ bool BigReal::operator>(BigReal& otherBigReal)
 
 	}//789456123 - 48576761
 	if ((unsigned short)(this->removeLead().integer).size() >
-		(unsigned short)(otherBigReal.removeLead().integer.size())) {
+		(unsigned short)(otherBigReal.removeLead().integer.size())) { //compares integer sizes
 		yes = true;
 		return yes;
 	}
 	for (size_t i = (otherBigReal.integer.size()) - 1; i >= 0; i--)
 	{
-		if ((unsigned short)this->integer[i] > (unsigned short)otherBigReal.integer[i])
+		if ((unsigned short)this->integer[i] > (unsigned short)otherBigReal.integer[i]) 
 		yes = true;
 		break;
 	}
 	if (!yes) {
-		for (size_t i = 0; i < otherBigReal.fraction.size()-1; i++)
+		for (size_t i = 0; i < otherBigReal.fraction.size()-1; i++)    //compares fraction if the integer part is the samae in both
 		{
 			if ((unsigned short)this->fraction[i] > (unsigned short)otherBigReal.fraction[i]) 
 				yes = true;
@@ -168,7 +175,7 @@ bool BigReal::operator>(BigReal& otherBigReal)
 
 bool BigReal::operator<(BigReal& otherBigReal)
 {
-	return (!(*this > otherBigReal) && !(*this == otherBigReal));
+	return (!(*this > otherBigReal) && !(*this == otherBigReal)); //if not greater than and not equal then it's definitely less than
 }
 
 
@@ -177,14 +184,14 @@ BigReal& BigReal::operator =(const string& realString) {
 	if (isValidReal(realString)) {
 		string temp;
 		temp = realString;
-		if ((realString.find('.') == string::npos)) isDot = false;
+		if ((realString.find('.') == string::npos)) isDot = false;   
 		if (realString[0] == '-' || realString[0] == '+') {
-			temp = realString.substr(1, realString.size() - 1);
-			if (realString[0] == '-') sign = '-';
+			temp = realString.substr(1, realString.size() - 1); //if there is a sign we make a temporary variable without it
+			if (realString[0] == '-') sign = '-'; //saves the sign
 		}
-		integer = temp.substr(0, temp.find('.'));
-		if (isDot) fraction = temp.substr(integer.size() + 1, temp.size() - 1);
-		//we now have a good lookin int and frac
+		integer = temp.substr(0, temp.find('.')); //initialezes the integer part starting from the first digit to the dot
+		if (isDot) fraction = temp.substr(integer.size() + 1, temp.size() - 1); //initialize the fraction part from after the dot
+		
 		while (integer[0] == '0' && integer.size() >= 1) //delete leading zeros
 		{
 			integer.erase(0, 1);
@@ -193,14 +200,14 @@ BigReal& BigReal::operator =(const string& realString) {
 		{
 			fraction.erase(fraction.size() - 1, 1);
 		}
-		if (integer.empty()) integer = '0';
+		if (integer.empty()) integer = '0'; //default value is zero
 		if (fraction.empty()) fraction= '0';
 
 	}
 	return *this;
 }
 
-istream& operator>>(istream& input, BigReal& bigR)
+istream& operator>>(istream& input, BigReal& bigR) //overloading the input operator
 {
 	string input_str;
 	input >> input_str;
@@ -208,14 +215,14 @@ istream& operator>>(istream& input, BigReal& bigR)
 	return input;  
 }
 
-ostream& operator<<(ostream& output, const BigReal& BigR)
+ostream& operator<<(ostream& output, const BigReal& BigR) //overloading the output operator
 {
 	if (BigR.sign == '-') output << BigR.sign;
-	if (BigR.isDot) output << BigR.integer << '.' << BigR.fraction;
+	if (BigR.isDot) output << BigR.integer << '.' << BigR.fraction;  //puts the whole number together
 	else output << BigR.integer;
 	return output;
 }
-void BigReal::Pad(BigReal& a, BigReal& b)
+void BigReal::Pad(BigReal& a, BigReal& b) //makes both BigReals have the same size by adding zeros
 {
 	if (a.integer.size() > b.integer.size()) {
 		b.integer.insert(0, a.integer.size() - b.integer.size(), '0');
