@@ -10,9 +10,9 @@
 using namespace std;
 int main()
 {
-	BigReal x,y;
-	cin >> x;
-	cin >> y;
-	BigReal::Pad(x,y);
-	cout << x << endl<<y;
+	BigReal x{ "1.9" }, y{ "0.1" }; 
+	//0.1122 +
+	//0.2000
+
+	cout<<( x + y );
 }

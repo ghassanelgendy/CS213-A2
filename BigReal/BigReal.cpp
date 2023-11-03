@@ -10,6 +10,7 @@
 #include <string>
 #include <stdlib.h>
 #include "BigReal.h"
+#define usn unsigned short
 
 BigReal::BigReal() : integer(""), fraction(""), isDot(true), sign('+'){ }
 
@@ -52,11 +53,11 @@ ostream& operator<<(ostream& output, const BigReal& BigR) //overloading the outp
 }
 BigReal BigReal::removeLead()
 {
-	while (integer[0] == '0' && integer.size() >= 1) //delete leading zeros
+	while (integer[0] == '0' && integer.size() >= 1) //delete leading zeros in integer
 	{
 		integer.erase(0, 1);
 	}
-	while (!fraction.empty() && fraction[fraction.size() - 1] == '0') //delete leading zeros
+	while (!fraction.empty() && fraction[fraction.size() - 1] == '0') //delete leading zeros in fraction
 	{
 		fraction.erase(fraction.size() - 1, 1);
 	}
@@ -66,18 +67,18 @@ BigReal BigReal::removeLead()
 }
 bool BigReal::operator>(BigReal& otherBigReal)
 {
-	if (this->sign == '+' && otherBigReal.sign=='-') return true;       //if first is positive and second is negative
-	if (this->sign == '-' && otherBigReal.sign == '+') return false;    //if first is negative and second is positive
-	if (this->sign == '-' && otherBigReal.sign == '-') {      //if both are negative , we swap them to check
+	if (sign == '+' && otherBigReal.sign=='-') return true;       //if first is positive and second is negative
+	if (sign == '-' && otherBigReal.sign == '+') return false;    //if first is negative and second is positive
+	if (sign == '-' && otherBigReal.sign == '-') {      //if both are negative , we swap them to check
 		swap(*this, otherBigReal);
 	}
-	if ((this->removeLead().integer).size() >
+	if ((removeLead().integer).size() >
 		(otherBigReal.removeLead().integer.size())) { //compares integer sizes
 		return true;
 	}
 	for (size_t i = (this->integer.size()) - 1; i > 0; i--)
 	{
-		if (this->integer[i]> otherBigReal.integer[i])
+		if (integer[i]> otherBigReal.integer[i])
 			return true;
 	}
 	if ((this->removeLead().fraction).size() >
@@ -86,7 +87,7 @@ bool BigReal::operator>(BigReal& otherBigReal)
 	}
 	for (size_t i = 0; i < otherBigReal.fraction.size()-1; i++)    //compares fraction if the integer part is the samae in both
 	{
-		if ((unsigned short)this->fraction[i] > (unsigned short)otherBigReal.fraction[i])
+		if ((usn)fraction[i] > (usn)otherBigReal.fraction[i])
 		return true;
 	}
 	return false;
@@ -99,9 +100,9 @@ bool BigReal::operator<(BigReal& otherBigReal)
 
 bool BigReal::operator==(BigReal& otherBigReal)
 {
-	return (this->removeLead().integer == otherBigReal.removeLead().integer &&    //checks if integer part is equal
-			this->removeLead().fraction == (otherBigReal.removeLead().fraction) &&      //checks if fraction part is equal
-			this->sign == otherBigReal.sign);            //checks if signs are equal
+	return (removeLead().integer == otherBigReal.removeLead().integer &&    //checks if integer part is equal
+			removeLead().fraction == (otherBigReal.removeLead().fraction) &&      //checks if fraction part is equal
+			sign == otherBigReal.sign);            //checks if signs are equal
 }
 void BigReal::Pad(BigReal& a, BigReal& b) //makes both BigReals have the same size by adding zeros
 {
@@ -127,32 +128,44 @@ istream& operator>>(istream& input, BigReal& bigR) //overloading the input opera
 	return input;
 }
 
-//BigReal BigReal::operator+(BigReal& otherBigReal){
-//    BigReal value;
-//	Pad(*this, otherBigReal);
-//	int carry = 0;
-//    for (int i = fraction.size()-1; i >= 0 ; --i) {
-//        int res ;
-//		res = (int)((fraction[i])-'0') + (int)((otherBigReal.fraction[i])-'0') + carry;
-//        carry=0;							                                       
-//        if (res > 9){ //condition to  increment the carry and take only the last digit if the result is big than 9                                                 
-//            carry++;
-//            res %= 10;
-//        }
-//		value.fraction.insert(0,1,char(res)+'0');
-//    }
-//	for (int i = integer.size() - 1; i >= 0; --i) {
-//		int res;
-//		res = (int)((integer[i]) - '0') + (int)((otherBigReal.integer[i]) - '0') + carry;
-//		carry = 0;
-//		if (res > 9) {
-//			carry++;
-//			res %= 10;
-//		}
-//		value.integer.insert(0, 1, char(res) + '0');
-//	}
-//	return value;
-//}
+BigReal BigReal::operator+(BigReal& otherBigReal){
+    BigReal value;
+	Pad(*this, otherBigReal);
+	if (!((sign) ^ otherBigReal.sign)) { //the two number have the same sign
+		value.sign = sign; //the sum is gonna be the same sign too
+	}
+	usn carry{ 0 }; //the variable holds carry value
+	for (int i = fraction.size() - 1; i >= 0; --i)
+	{
+		usn res;
+		usn frac_a =((usn)(fraction[i] - '0'));
+		usn frac_b = ((usn)(otherBigReal.fraction[i] - '0'));
+		res = frac_a + frac_b + carry;
+		carry = 0;
+		if (res > 9) { //condition to  increment the carry and take only the last digit if the result is bigger than 9                                                 
+			carry++;
+			res %= 10;
+		}
+		value.fraction.insert(0, 1, (char)(res + '0')); //inserting the resulted digit to the fraction part
+	}
+
+	for (int i = integer.size() - 1; i >= 0; --i) {
+		usn res;
+		usn int_a = ((usn)(integer[i] - '0'));
+		usn int_b = ((usn)(otherBigReal.integer[i] - '0'));
+		res = int_a + int_b + carry;
+		carry = 0;
+		if (res > 9) {
+			carry++;
+			res %= 10;
+		}
+		value.integer.insert(0, 1, (char)(res)+'0');
+	}
+	if (value.integer.empty()) { value.integer = "0"; }; //if it's just fraction, add '0' to integer part
+	return value;
+}
+
+
 //BigReal BigReal::operator-(BigReal& otherBigReal) {
 //	BigReal value;
 //	Pad(*this, otherBigReal);

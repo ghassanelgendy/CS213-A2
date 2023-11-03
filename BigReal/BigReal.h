@@ -7,8 +7,6 @@
 // Date: 30 Oct 2023
 #include <iostream>
 #include <string>
-#include <regex>
-#include <string>
 using namespace std;
 #pragma once
 class BigReal
@@ -30,7 +28,7 @@ public:
 	bool operator ==(BigReal& otherBigReal); //equality operator overload //WORKING
 	static void Pad(BigReal& a, BigReal& b); //WORKING
 	friend istream& operator >>(istream& input, BigReal& bigR); //friend function (bec we're using istream) insertion operator overload //WORKING
-	//BigReal operator +(BigReal& otherBigReal); //addition operator overload
+	BigReal operator +(BigReal& otherBigReal); //addition operator overload
 	//BigReal operator -(BigReal& otherBigReal); //substraction operator overload
 };
 
