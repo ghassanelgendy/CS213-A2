@@ -19,18 +19,18 @@ private:
 	string integer;
 	string fraction;
 public:
-	BigReal(); //default constructor
-	BigReal(const string& real); //parameterized constructor
-	BigReal removeLead();
-	BigReal operator +(BigReal& otherBigReal); //addition operator overload
-	BigReal operator -(BigReal& otherBigReal); //substraction operator overload
-	BigReal& operator =(const string& BigR); //assignment operator overload
-	bool operator ==(BigReal& otherBigReal); //equality operator overload
-	bool operator >(BigReal& otherBigReal); //greater than operator overload
-	bool operator <(BigReal& otherBigReal); //smaller than operator overload
-	bool isValidReal(const string& realString);
-	static void Pad(BigReal& a, BigReal& b);
-	friend istream& operator >>(istream& input, BigReal& bigR); //friend function (bec we're using istream) insertion operator overload
-	friend ostream& operator<<(ostream& output, const BigReal& BigR); //friend function (bec we're using ostream) extraction operator overload
+	BigReal(); //default constructor //WORKING
+	bool isValidReal(const string& realString); //WORKING
+	BigReal(const string& real); //parameterized constructor //WORKING
+	BigReal& operator =(const string& BigR); //assignment operator overload //WORKING
+	friend ostream& operator<<(ostream& output, const BigReal& BigR); //friend function (bec we're using ostream) extraction operator overload //WORKING
+	BigReal removeLead(); //WORKING
+	bool operator >(BigReal& otherBigReal); //greater than operator overload //WORKING
+	bool operator <(BigReal& otherBigReal); //smaller than operator overload //WORKING
+	bool operator ==(BigReal& otherBigReal); //equality operator overload //WORKING
+	static void Pad(BigReal& a, BigReal& b); //WORKING
+	friend istream& operator >>(istream& input, BigReal& bigR); //friend function (bec we're using istream) insertion operator overload //WORKING
+	//BigReal operator +(BigReal& otherBigReal); //addition operator overload
+	//BigReal operator -(BigReal& otherBigReal); //substraction operator overload
 };
 

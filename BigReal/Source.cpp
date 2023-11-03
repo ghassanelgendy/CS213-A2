@@ -10,17 +10,9 @@
 using namespace std;
 int main()
 {
-	//BigReal x("7.6"), y("6.4"); //1.2 //done
-	//BigReal x("7.6"), y("-6.4"); //14          //4?? //three digits wroking correctly???
-	BigReal x("12"), y("5"); //-14     //-4?????
-	//BigReal x("-7.6"), y("-6.4"); //-1.2    //done
-	
-	
-    //BigReal x("6.4"), y("7.6"); //-1.2 //done
-	//BigReal x("106.4"), y("-7.6"); //14   //4?? //three digits wrking correctly?????????????
-	//BigReal x("-106.4"), y("7.6"); //-14  //-4???
-	//BigReal x("-6.4"), y("-7.6"); //1.2  //done
-	
-
-	cout <<(x - y);
+	BigReal x,y;
+	cin >> x;
+	cin >> y;
+	BigReal::Pad(x,y);
+	cout << x << endl<<y;
 }
