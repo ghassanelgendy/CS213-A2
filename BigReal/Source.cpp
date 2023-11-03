@@ -10,9 +10,5 @@
 using namespace std;
 int main()
 {
-	BigReal x{ "1.9" }, y{ "0.1" }; 
-	//0.1122 +
-	//0.2000
 
-	cout<<( x + y );
 }
