@@ -71,32 +71,42 @@ bool BigReal::operator>(BigReal otherBigReal)
 	if (sign == '+' && otherBigReal.sign=='-') return true;       //if first is positive and second is negative
 	if (sign == '-' && otherBigReal.sign == '+') return false;    //if first is negative and second is positive
 	if (sign == '-' && otherBigReal.sign == '-') {      //if both are negative , we swap them to check
+		
 		swap(*this, otherBigReal);
+		
 	}
-	if ((this->removeLead().integer).size() >
+	if ((removeLead().integer).size() >
 		(otherBigReal.removeLead().integer.size())) { //compares integer sizes
 		isBigger = true;
 		return isBigger;
 	}
 	Pad(*this, otherBigReal); //to make sure the integers comparison is correct digit by digit
-	for (size_t i = 0; i < (integer.size()); i++)
+	for (size_t i = 0; i < (integer.size()); ++i)
 	{
-		if ((usn)integer[i] > (usn)otherBigReal.integer[i])
-			isBigger = true;
+		if ((int)integer[i] > (int)otherBigReal.integer[i]) {
+		
+			return true;
+		}
+		else if((int)integer[i] < (int)otherBigReal.integer[i]){
+			return false;
+		}
 	}	
 
 	if ((removeLead().fraction).size() >
 		(otherBigReal.removeLead().fraction.size())) {
 		//compares fraction sizes
+	
 		isBigger =  true;
 
 	}
 	Pad(*this, otherBigReal); //to make sure the fraction comparison is correct digit by digit
 	for (size_t i = 0; i < otherBigReal.fraction.size(); i++)    //compares fraction if the integer part is the samae in both
 	{
-		if ((usn)fraction[i] > (usn)otherBigReal.fraction[i])
-		isBigger =  true;
-		return isBigger;
+		if ((usn)fraction[i] > (usn)otherBigReal.fraction[i]) 
+			isBigger = true;
+			
+
+	return isBigger;
 
 	}
 	return isBigger;
