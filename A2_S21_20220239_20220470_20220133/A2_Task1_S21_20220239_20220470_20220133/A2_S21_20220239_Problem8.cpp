@@ -12,11 +12,11 @@ using namespace std;
 
 void pattern(int n, int i) {
     if (!n) return; //base case
-    pattern(n / 2, i); //start from 0 to generate the left half
+    pattern(n / 2, i); //start from 0 to generate the upper half
     for (int j = 0; j < i; j++) cout << "  "; //offsetting the column
     for (int k = 0; k < n; k++) cout << "* "; //printing the row
     cout << '\n';//newline 
-    pattern(n / 2, i + n / 2); //printing the right part 
+    pattern(n / 2, i + n / 2); //printing the lower part 
 }
 
 int main() {
