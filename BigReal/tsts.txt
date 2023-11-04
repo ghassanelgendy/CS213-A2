@@ -1,0 +1,153 @@
+
+//BigReal x("7.6"), y("6.4"); //1.2 //done
+	//BigReal x("7.6"), y("-6.4"); //14          //4?? //three digits wroking correctly???
+	BigReal x("9"), y("5"); //-14     //-4?????
+	//BigReal x("-7.6"), y("-6.4"); //-1.2    //done
+
+
+	//BigReal x("6.4"), y("7.6"); //-1.2 //done
+	//BigReal x("106.4"), y("-7.6"); //14   //4?? //three digits wrking correctly?????????????
+	//BigReal x("-106.4"), y("7.6"); //-14  //-4???
+	//BigReal x("-6.4"), y("-7.6"); //1.2  //done
+
+
+	cout << (x - y);
+}
+106.4
+007.6
+014.0
+
+++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++
++  +  //+
++  -  //
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a > b; //+a + -b 9 + -4 == (9 - 4) >>>>>>>>  (sign elkbeer) a-b
+
+a > b; //-a + +b -9 + 4 == (9 - 4) >>>>>>>>  (sign elkbeer) a-b
+
+a < b; //+a + -b 4 + -9 ==         >>>>>>>>  (sign elkbeer) b-a
+
+a < b;                             >>>>>>>>  (sign elkbeer) b-a
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-  -  //+
+-  +
+0.5615
+0.5611
+=================================
+
+50
+10
+
+
+---------------------------------
+-3 - 	   8  -> -11
+ 3 - 	  -8  ->  11
+-8 -  	   3  -> -11
+ 8 -	  -3  ->  11
+ 12.12 - 5.5  ->  //expected 6.62
+12.12
+05.50      2
+
+
+	if (sign == otherBigReal.sign) {
+	if (sign == '+'){
+		if(!(*this < otherBigReal)){
+			for (int i = fraction.size() - 1; i >= 0; --i) {
+				int res = (fraction[i] - '0') - (otherBigReal.fraction[i] - '0') - borrow;
+				borrow = 0;
+				if (res < 0) {
+					borrow++;
+					res += 10;
+				}
+				value.fraction.insert(0, 1, (char)(res)+'0');
+			}
+			for (int i = integer.size() - 1; i > 0; --i) {
+				int res = (integer[i] - '0') - (otherBigReal.integer[i] - '0') - borrow;
+				borrow = 0;
+				if (res < 0) {
+					borrow++;
+					res += 10;
+				}
+				value.integer.insert(0, 1, (char)res + '0');
+				}
+			}
+			else {//both positive but other is bigger
+				value = otherBigReal - *this;// Swap and negate result
+				value.sign = '-';
+			}
+		}
+		else {// both negative
+			this->sign = '+';
+			otherBigReal.sign = '+';
+			value = otherBigReal - *this;
+		}
+	}
+	else {
+		// If different signs, convert subtraction to addition
+		if (this->sign == '+') {
+			otherBigReal.sign = '+';
+			value = *this + otherBigReal;
+		}
+		else {
+			this->sign = '+';
+			value = *this + otherBigReal;
+			value.sign = '-';
+		}
+	}
+
+	return value;
+
+
+	if (sign == '+') {   // both positive
+		if (!(*this < otherBigReal)) {
+			for (int i = fraction.size() - 1; i >= 0; --i) {
+				int A_frac = ((int)fraction[i] - '0');
+				int B_frac((int)otherBigReal.fraction[i] - '0');
+				int res = A_frac - B_frac - borrow;
+				borrow = 0;
+				cout << "==========0----" << res << endl;
+				if (res < 0) {
+					borrow++;
+					res += 10;
+				}
+				cout << "==========1-----" << res << endl;
+
+				value.fraction.insert(0, 1, (char)(res)+'0');
+			}
+			for (int i = integer.size() - 1; i > 0; --i) {
+				int res = ((usn)integer[i] - '0') - ((usn)otherBigReal.integer[i] - '0') - borrow;
+				borrow = 0;
+				if (res < 0) {
+					borrow++;
+					res += 10;
+				}
+				value.integer.insert(0, 1, (char)res+'0');
+			}
+		}
+		else {//both positive but other is bigger
+			value = otherBigReal - *this;// Swap and negate result
+			value.sign = '-';
+		}
+	}
+	else {// both negative
+		this->sign = '+';
+		otherBigReal.sign = '+';
+		value = otherBigReal - *this;
+	}
+}
+else {
+	// If different signs, convert subtraction to addition
+	if (this->sign == '+') {
+		otherBigReal.sign = '+';
+		value = *this + otherBigReal;
+	}
+	else {
+		this->sign = '+';
+		value = *this + otherBigReal;
+		value.sign = '-';
+	}

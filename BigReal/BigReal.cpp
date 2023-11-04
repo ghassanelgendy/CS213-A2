@@ -10,6 +10,7 @@
 #include <string>
 #include <stdlib.h>
 #include "BigReal.h"
+#define usn unsigned short
 
 BigReal::BigReal() : integer(""), fraction(""), isDot(true), sign('+'){ }
 
@@ -22,7 +23,7 @@ bool BigReal::isValidReal(const string& realString)
 {
 	if (regex_match(realString, regex("[+-]?\\d*\\.?\\d*"))) return true; //using regex to validate the number
 	else {
-		cout << "Invalid input\nError code 900";
+		cout << "Invalid input\n";
 		exit(900);
 	}
 }
@@ -52,11 +53,11 @@ ostream& operator<<(ostream& output, const BigReal& BigR) //overloading the outp
 }
 BigReal BigReal::removeLead()
 {
-	while (integer[0] == '0' && integer.size() >= 1) //delete leading zeros
+	while (integer[0] == '0' && integer.size() >= 1) //delete leading zeros in integer
 	{
 		integer.erase(0, 1);
 	}
-	while (!fraction.empty() && fraction[fraction.size() - 1] == '0') //delete leading zeros
+	while (!fraction.empty() && fraction[fraction.size() - 1] == '0') //delete leading zeros in fraction
 	{
 		fraction.erase(fraction.size() - 1, 1);
 	}
@@ -64,44 +65,63 @@ BigReal BigReal::removeLead()
 	if (fraction.empty()) fraction = '0';
 	return *this;
 }
-bool BigReal::operator>(BigReal& otherBigReal)
+bool BigReal::operator>(BigReal otherBigReal)
 {
-	if (this->sign == '+' && otherBigReal.sign=='-') return true;       //if first is positive and second is negative
-	if (this->sign == '-' && otherBigReal.sign == '+') return false;    //if first is negative and second is positive
-	if (this->sign == '-' && otherBigReal.sign == '-') {      //if both are negative , we swap them to check
+	bool isBigger{ false };
+	if (sign == '+' && otherBigReal.sign=='-') return true;       //if first is positive and second is negative
+	if (sign == '-' && otherBigReal.sign == '+') return false;    //if first is negative and second is positive
+	if (sign == '-' && otherBigReal.sign == '-') {      //if both are negative , we swap them to check
+		
 		swap(*this, otherBigReal);
+		
 	}
-	if ((this->removeLead().integer).size() >
+	if ((removeLead().integer).size() >
 		(otherBigReal.removeLead().integer.size())) { //compares integer sizes
-		return true;
+		isBigger = true;
+		return isBigger;
 	}
-	for (size_t i = (this->integer.size()) - 1; i > 0; i--)
+	Pad(*this, otherBigReal); //to make sure the integers comparison is correct digit by digit
+	for (size_t i = 0; i < (integer.size()); ++i)
 	{
-		if (this->integer[i]> otherBigReal.integer[i])
+		if ((int)integer[i] > (int)otherBigReal.integer[i]) {
+		
 			return true;
+		}
+		else if((int)integer[i] < (int)otherBigReal.integer[i]){
+			return false;
+		}
+	}	
+
+	if ((removeLead().fraction).size() >
+		(otherBigReal.removeLead().fraction.size())) {
+		//compares fraction sizes
+	
+		isBigger =  true;
+
 	}
-	if ((this->removeLead().fraction).size() >
-		(otherBigReal.removeLead().fraction.size())) { //compares integer sizes
-		return true;
-	}
-	for (size_t i = 0; i < otherBigReal.fraction.size()-1; i++)    //compares fraction if the integer part is the samae in both
+	Pad(*this, otherBigReal); //to make sure the fraction comparison is correct digit by digit
+	for (size_t i = 0; i < otherBigReal.fraction.size(); i++)    //compares fraction if the integer part is the samae in both
 	{
-		if ((unsigned short)this->fraction[i] > (unsigned short)otherBigReal.fraction[i])
-		return true;
+		if ((usn)fraction[i] > (usn)otherBigReal.fraction[i]) 
+			isBigger = true;
+			
+
+	return isBigger;
+
 	}
-	return false;
+	return isBigger;
 }
 
-bool BigReal::operator<(BigReal& otherBigReal)
+bool BigReal::operator<(BigReal otherBigReal)
 {
 	return (!(*this > otherBigReal) && !(*this == otherBigReal)); //if not greater than and not equal then it's definitely less than
 }
 
 bool BigReal::operator==(BigReal& otherBigReal)
 {
-	return (this->removeLead().integer == otherBigReal.removeLead().integer &&    //checks if integer part is equal
-			this->removeLead().fraction == (otherBigReal.removeLead().fraction) &&      //checks if fraction part is equal
-			this->sign == otherBigReal.sign);            //checks if signs are equal
+	return (removeLead().integer == otherBigReal.removeLead().integer &&    //checks if integer part is equal
+			removeLead().fraction == (otherBigReal.removeLead().fraction) &&      //checks if fraction part is equal
+			sign == otherBigReal.sign);            //checks if signs are equal
 }
 void BigReal::Pad(BigReal& a, BigReal& b) //makes both BigReals have the same size by adding zeros
 {
@@ -127,94 +147,115 @@ istream& operator>>(istream& input, BigReal& bigR) //overloading the input opera
 	return input;
 }
 
-//BigReal BigReal::operator+(BigReal& otherBigReal){
-//    BigReal value;
-//	Pad(*this, otherBigReal);
-//	int carry = 0;
-//    for (int i = fraction.size()-1; i >= 0 ; --i) {
-//        int res ;
-//		res = (int)((fraction[i])-'0') + (int)((otherBigReal.fraction[i])-'0') + carry;
-//        carry=0;							                                       
-//        if (res > 9){ //condition to  increment the carry and take only the last digit if the result is big than 9                                                 
-//            carry++;
-//            res %= 10;
-//        }
-//		value.fraction.insert(0,1,char(res)+'0');
-//    }
-//	for (int i = integer.size() - 1; i >= 0; --i) {
-//		int res;
-//		res = (int)((integer[i]) - '0') + (int)((otherBigReal.integer[i]) - '0') + carry;
-//		carry = 0;
-//		if (res > 9) {
-//			carry++;
-//			res %= 10;
-//		}
-//		value.integer.insert(0, 1, char(res) + '0');
-//	}
-//	return value;
-//}
-//BigReal BigReal::operator-(BigReal& otherBigReal) {
-//	BigReal value;
-//	Pad(*this, otherBigReal);
-//	int borrow = 0;
-//
-//	if (otherBigReal > *this) {
-//		value = otherBigReal;
-//		value.sign = '-';
-//		return value;
-//	}
-//
-//	if (this->sign == otherBigReal.sign) {
-//		if (this->sign == '+') { // both positive
-//			if (*this > otherBigReal || *this == otherBigReal) { // first is bigger or equal to
-//				for (int i = fraction.size() - 1; i >= 0; --i) {
-//					int res = (fraction[i] - '0') - (otherBigReal.fraction[i] - '0') - borrow;
-//					borrow = 0;
-//					if (res < 0) {
-//						borrow++;
-//						res += 10;
-//					}
-//					value.fraction.insert(0, 1, res + '0');
-//				}
-//
-//				borrow = 0;
-//				for (int i = integer.size() - 1; i >= 0; --i) {
-//					int res = (integer[i] - '0') - (otherBigReal.integer[i] - '0') - borrow;
-//					borrow = 0;
-//					if (res < 0) {
-//						borrow++;
-//						res += 10;
-//					}
-//					value.integer.insert(0, 1, res + '0');
-//				}
-//			}
-//			else { // both positive but other is bigger
-//				value = otherBigReal - *this; // Swap and negate result
-//				value.sign = '-';
-//			}
-//		}
-//		else { // both negative
-//			this->sign = '+';
-//			otherBigReal.sign = '+';
-//			value = otherBigReal - *this;
-//		}
-//	}
-//	else {
-//		 If different signs, convert subtraction to addition
-//		if (this->sign == '+') {
-//			otherBigReal.sign = '+';
-//			value = *this + otherBigReal;
-//		}
-//		else {
-//			this->sign = '+';
-//			value = *this + otherBigReal;
-//			value.sign = '-';
-//		}
-//	}
-//
-//	return value;
-//}
-//
+BigReal BigReal::operator+(BigReal& otherBigReal){
+    BigReal value;
+	Pad(*this, otherBigReal);
+	BigReal a{ *this }, b{ otherBigReal };
 
+	if (sign == otherBigReal.sign) //the two number have the same sign
+	{
+		value.sign = sign; //the sum is gonna be the same sign too
+		usn carry{ 0 }; //the variable holds carry value
+		for (int i = fraction.size() - 1; i >= 0; --i)
+		{
+			usn res;
+			res = ((usn)(fraction[i] - '0')) + ((usn)(otherBigReal.fraction[i] - '0')) + carry;
+			carry = 0;
+			if (res > 9) { //condition to  increment the carry and take only the last digit if the result is bigger than 9                                                 
+				carry++;
+				res %= 10;
+			}
+			value.fraction.insert(0, 1, (char)(res + '0')); //inserting the resulted digit to the fraction part
+		}
+		for (int i = integer.size() - 1; i >= 0; --i) {
+			usn res;
+			res = ((usn)(integer[i] - '0')) + (usn)(otherBigReal.integer[i] - '0') + carry;
+			carry = 0;
+			if (res > 9) {
+				carry++;
+				res %= 10;
+			}
+			value.integer.insert(0, 1, (char)(res)+'0');
+		}
+		if ( carry > 0) value.integer.insert(0, 1, '1');
+	}
+	else { //different signs
+		a.sign = '+';
+		b.sign = '+';
+		if (a > b){
+			value = (b - a);
+			value.sign = sign;
+		}
+		else {
+			value = (a - b);
+			value.sign = otherBigReal.sign;
+		}
+	}
+	if (value.integer.empty()) { value.integer = "0"; }; //if it's just fraction, add '0' to integer part
+	if (value.fraction.empty()) { value.fraction = "0"; }; //if it's just fraction, add '0' to integer part
+	return value;
+}
 
+BigReal BigReal::operator-(BigReal& otherBigReal) {
+	BigReal value;
+	BigReal a{ *this }, b{otherBigReal};
+	a.sign = '+';
+	b.sign = '+';
+	if (a == b) {
+		value = "0.0";
+		return value;
+	}
+	int borrow{ 0 };
+	if (sign == otherBigReal.sign) {
+		if (sign == '+') {
 
+			if (*this > otherBigReal) {
+				Pad(*this, otherBigReal);
+				for (int i = fraction.size() - 1; i >= 0; --i) {
+					int res = (fraction[i] - '0') - (otherBigReal.fraction[i] - '0') - borrow;
+					borrow = 0;
+					if (res < 0) {
+						borrow++;
+						res += 10;
+					}
+					value.fraction.insert(0, 1, (char)(res)+'0');
+				}
+				for (int i = integer.size() - 1; i >= 0; --i)
+				{
+					int res = (integer[i] - '0') - (otherBigReal.integer[i] - '0') - borrow;
+					borrow = 0;
+					if (res < 0) {
+						borrow++;
+						res += 10;
+					}
+						value.integer.insert(0, 1, (char)(res + '0'));		
+				}
+			}
+			else {//both positive but other is bigger
+				value = (otherBigReal - *this);// Swap and negate result
+				value.sign = '-';
+			}
+		}
+		else {// both negative
+			sign = '+';
+			otherBigReal.sign = '+';
+			value = (otherBigReal - *this);
+		}
+	}
+	else {
+		// If different signs, convert subtraction to addition
+		if (sign == '+') {
+			otherBigReal.sign = '+';
+			value = (*this + otherBigReal);
+		}
+		else {
+			this->sign = '+';
+			value = *this + otherBigReal;
+			value.sign = '-';
+		}
+	}
+	if (value.integer.empty()) { value.integer = "0"; }; //if it's just fraction, add '0' to integer part
+	if (value.fraction.empty()) { value.fraction = "0"; }; //if it's just fraction, add '0' to integer part
+
+	return value.removeLead();
+}
