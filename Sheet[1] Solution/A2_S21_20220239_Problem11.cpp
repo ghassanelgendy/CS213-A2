@@ -16,35 +16,35 @@ by word. The result is either identical or the first different word and the line
 */
 using namespace std;
 bool isSame{true};
-ifstream f1;
-int size1;
-int size2;
-ifstream f2;
+ifstream f1; //ifstream obj
+int size1; //first obj's size
+int size2; //sec obj's size
+ifstream f2; 
 
 int getSize(ifstream &filename) {
     long long size;
-    filename.seekg(0, std::ifstream::end);
+    filename.seekg(0, std::ifstream::end); //seeking to the end of the file to get size
     size = filename.tellg();
-    filename.seekg(0, std::ifstream::beg);
+    filename.seekg(0, std::ifstream::beg); //going back to the beginning
     return (int) size;
 }
 
 string openFile(const string &filename) {
-    return filename + ".txt";
+    return filename + ".txt"; //appending .txt to the input
 }
 
 void compareChar() {
-    char ch1, ch2;
+    char ch1, ch2; 
     int diff = 0;
-    while (f1.get(ch1) && f2.get(ch2)) {
-        if (ch1 != ch2) {
-            isSame = false;
-            diff++;
+    while (f1.get(ch1) && f2.get(ch2)) { //while there's still characters in both files
+        if (ch1 != ch2) { //comparing each character
+            isSame = false;  
+            diff++; //incrementing the difference between them
         }
     }
-    if (!isSame || (f1.get(ch1) || f2.get(ch2))) {
-        diff += abs(size1 - size2);
-        cout << "Number of differences = " << diff;
+    if (!isSame || (f1.get(ch1) || f2.get(ch2))) { //if they're not the same but there's a file bigger than the other
+        diff += abs(size1 - size2); //taking the absolute for the differences between both files and considering them as differences  
+        cout << "Number of differences = " << diff;  
     } else
         cout << "These are identical.\n";
 }
