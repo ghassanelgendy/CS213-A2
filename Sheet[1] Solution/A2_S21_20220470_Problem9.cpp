@@ -9,15 +9,15 @@
 using namespace std;
 static bool bears(int n) // ely ma3aya
 {
-    if(n==42){     // law maq3aya exactly 42 fa shokran keda khelset
-        return true;
+    if(n==42){
+        return true; // as exactly 42 means winning
     }
     else{
-        if(n%5==0){ // law divisible by 5 hatraga3 el n-42
+        if(n%5==0){ //if it is divisible by 5 we should go back but this time with n-42
             bears(n-42);
-            return true;      // w leh return true la2n mafrod dy men el steps ely bet2ool eny on the right track
+            return true;
         }
-        else if(n%2==0){
+        else if(n%2==0){   //if it is divisible by 2 we should go back but this time with n/2
             bears(n/2);
             return true;
         }
@@ -29,7 +29,7 @@ static bool bears(int n) // ely ma3aya
             return true;
         }
         else{
-            return false;        // khalas keda mafehash wala wahda men el rules ely bet2ool eny haksab
+            return false;     // All the possible steps to win are not present therefore returning false is a must
         }
     }
 }
@@ -39,7 +39,7 @@ int main()
     if(bears(n))
         cout << "You have reached the goal!";
     else{
-        cout << "You lose";
+        cout << "You lose!";
     }
     return 0;
 }
