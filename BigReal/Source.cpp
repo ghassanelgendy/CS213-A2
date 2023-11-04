@@ -61,7 +61,7 @@ int main() {
 
     cout << '\n';
     // Test 7: Subtraction Operator
-    BigReal e;
+    BigReal e("0.0");
     cout << "Test 7: Subtraction Operator" << endl;
     cout << "e = " << e << " (Expected: 0)" << endl;
 
