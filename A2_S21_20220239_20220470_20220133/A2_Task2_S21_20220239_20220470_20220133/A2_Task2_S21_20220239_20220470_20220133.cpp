@@ -1,4 +1,4 @@
-// File: Source.cpp
+// File: A2_Task2_S21_20220239_20220470_20220133.cpp
 // Purpose: This file contains the 'main' function. Program execution begins and ends there.
 // Authors: Ghassan Elgendy - Rawan Ehab - Jana Ramadan
 // IDs:	       20220239     -  20220133  -   20220470
@@ -11,7 +11,7 @@
 using namespace std;
 
 int main() {
-  BigReal a("0");
+    BigReal a("0");
     BigReal b("123.456");
     BigReal c("12.34");
 
@@ -19,13 +19,13 @@ int main() {
     cout << "Test 1: Parameterized Constructor" << endl;
     cout << "a = " << a << ", b = " << b << ", c = " << c << endl;
 
-    cout<<'\n';
+    cout << '\n';
     // Test 2: Copy Assignment Operator
     a = b;
     cout << "Test 2: Copy Assignment Operator" << endl;
     cout << "a = " << a << " (Expected: 123.456)" << endl;
 
-    cout<<'\n';
+    cout << '\n';
     // Test 3: Equality Operator
     bool isABEqual = (a == b);
     bool isACEqual = (a == c);
@@ -33,7 +33,7 @@ int main() {
     cout << "a == b: " << isABEqual << " (Expected: 1, true)" << endl;
     cout << "a == c: " << isACEqual << " (Expected: 0, false)" << endl;
 
-    cout<<'\n';
+    cout << '\n';
     // Test 4: Less Than Operator
     bool isALessThanB = (a < b);
     bool isALessThanC = (a < c);
@@ -43,7 +43,7 @@ int main() {
     cout << "a < c: " << isALessThanC << " (Expected: 0, false)" << endl;
     cout << "c < a: " << isCLessThanA << " (Expected: 1, true)" << endl;
 
-    cout<<'\n';
+    cout << '\n';
     // Test 5: Greater Than Operator
     bool isAGreaterThanB = (a > b);
     bool isAGreaterThanC = (a > c);
@@ -53,26 +53,27 @@ int main() {
     cout << "a > c: " << isAGreaterThanC << " (Expected: 1, true)" << endl;
     cout << "c > a: " << isCGreaterThanA << " (Expected: 0, false)" << endl;
 
-    cout<<'\n';
+    cout << '\n';
     // Test 6: Addition Operator
     BigReal d = (a + b);
     cout << "Test 6: Addition Operator" << endl;
     cout << "d = " << d << " (Expected: 246.912)" << endl;
 
-    cout<<'\n';
-    // Test 7: Subtraction Operator
+    cout << '\n';
+    // Test 7: Assignment Operator
     BigReal e;
+    e = "0.0";
     cout << "Test 7: Subtraction Operator" << endl;
     cout << "e = " << e << " (Expected: 0)" << endl;
 
-    cout<<'\n';
+    cout << '\n';
     // Test 8: Input Operator
     cout << "Test 8: Input Operator" << endl;
     cout << "Enter a BigReal number: ";
     cin >> a;
     cout << "You entered: " << a << endl;
 
-    cout<<'\n';
+    cout << '\n';
     // Test 9: Additional Arithmetic Test Cases
     BigReal x("123456789.987654321");
     BigReal y("87654321.123456789");
@@ -102,7 +103,7 @@ int main() {
     cout << "n = " << n << ", f = " << f << endl;
     cout << "n + f = " << result1 << " (Expected: 111.116)" << endl;
 
-    cout<<'\n';
+    cout << '\n';
     // Test 11: Subtracting a negative number from a positive number
     BigReal positive("123.456");
     BigReal negative("-12.34");
@@ -111,7 +112,7 @@ int main() {
     cout << "positive = " << positive << ", negative = " << negative << endl;
     cout << "positive - negative = " << result2 << " (Expected: 135.796)" << endl;
 
-    cout<<'\n';
+    cout << '\n';
     // Test 12: Adding two negative BigReal numbers
     BigReal neg1("-123.456");
     BigReal neg2("-12.34");
@@ -120,7 +121,7 @@ int main() {
     cout << "neg1 = " << neg1 << ", neg2 = " << neg2 << endl;
     cout << "neg1 + neg2 = " << result3 << " (Expected: -135.796)" << endl;
 
-    cout<<'\n';
+    cout << '\n';
     // Test 13: Subtracting a positive number from a negative number
     BigReal neg3("-123.456");
     BigReal pos("12.34");
@@ -128,7 +129,7 @@ int main() {
     cout << "Test 13: Subtracting a positive number from a negative number" << endl;
     cout << "neg3 = " << neg3 << ", pos = " << pos << endl;
     cout << "neg3 - pos = " << result4 << " (Expected: -135.796)" << endl;
-    cout<<'\n';
+    cout << '\n';
 
     // Test 14: Adding a very large positive number to a very small negative number
     BigReal largePositive("9999999999999999999999999999999.123456789");
@@ -137,7 +138,7 @@ int main() {
     cout << "Test 14: Adding a large positive number to a small negative number" << endl;
     cout << "largePositive = " << largePositive << ", smallNegative = " << smallNegative << endl;
     cout << "largePositive + smallNegative = " << result5 << " (9999999999999999999999999999999.1234567889999999999999999999999)" << endl;
-    cout<<'\n';
+    cout << '\n';
     // Test 15: Subtracting a very large negative number from a very small positive number
     BigReal smallPositive("0.0000000000000000000000000000001");
     BigReal largeNegative("-9999999999999999999999999999999.123456789");
@@ -145,15 +146,15 @@ int main() {
     cout << "Test 15: Subtracting a small positive number from a large negative number" << endl;
     cout << "smallPositive = " << smallPositive << ", largeNegative = " << largeNegative << endl;
     cout << "smallPositive - largeNegative = " << result6 << " (Expected: 9999999999999999999999999999999.1234567890000000000000000000001)" << endl;
-    cout<<'\n';
-// Test 16: Additional Arithmetic Test Cases
+    cout << '\n';
+    // Test 16: Additional Arithmetic Test Cases
     BigReal x0("36547854.3614");
     BigReal y0("514785269.96321");
     BigReal result7 = x0 + y0;
     cout << "Test 16: Adding x and y" << endl;
     cout << "x = " << x0 << ", y = " << y0 << endl;
     cout << "x + y = " << result7 << " (Expected: 551333124.32461)" << endl;
-    cout<<'\n';
+    cout << '\n';
 
     BigReal x2("-36547854.3614");
     BigReal y2("514785269.96321");
@@ -161,7 +162,7 @@ int main() {
     cout << "Test 17: Adding x2 and y2" << endl;
     cout << "x2 = " << x2 << ", y2 = " << y2 << endl;
     cout << "x2 + y2 = " << result8 << " (Expected: 478237415.6018)" << endl;
-    cout<<'\n';
+    cout << '\n';
 
     BigReal x3("36547854.3614");
     BigReal y3("-514785269.96321");
@@ -169,7 +170,7 @@ int main() {
     cout << "Test 18: Adding x3 and y3" << endl;
     cout << "x3 = " << x3 << ", y3 = " << y3 << endl;
     cout << "x3 + y3 = " << result9 << " (Expected: -478237415.60181)" << endl;
-    cout<<'\n';
+    cout << '\n';
 
     BigReal x4("-36547854.3614");
     BigReal y4("-514785269.96321");
@@ -177,7 +178,7 @@ int main() {
     cout << "Test 19: Adding x4 and y4" << endl;
     cout << "x4 = " << x4 << ", y4 = " << y4 << endl;
     cout << "x4 + y4 = " << result10 << " (Expected: -551333124.32461)" << endl;
-    cout<<'\n';
+    cout << '\n';
 
     BigReal x5("514785269.96321");
     BigReal y5("36547854.3614");
@@ -185,7 +186,7 @@ int main() {
     cout << "Test 20: Adding x5 and y5" << endl;
     cout << "x5 = " << x5 << ", y5 = " << y5 << endl;
     cout << "x5 + y5 = " << result11 << " (Expected: 551333124.32461)" << endl;
-    cout<<'\n';
+    cout << '\n';
 
     BigReal x6("-514785269.96321");
     BigReal y6("36547854.3614");
@@ -193,7 +194,7 @@ int main() {
     cout << "Test 21: Adding x6 and y6" << endl;
     cout << "x6 = " << x6 << ", y6 = " << y6 << endl;
     cout << "x6 + y6 = " << result12 << " (Expected: -478237415.60181)" << endl;
-    cout<<'\n';
+    cout << '\n';
 
     BigReal x7("514785269.96321");
     BigReal y7("-36547854.3614");
@@ -201,7 +202,7 @@ int main() {
     cout << "Test 22: Adding x7 and y7" << endl;
     cout << "x7 = " << x7 << ", y7 = " << y7 << endl;
     cout << "x7 + y7 = " << result13 << " (Expected: 478237415.60181)" << endl;
-    cout<<'\n';
+    cout << '\n';
 
     BigReal x8("-514785269.96321");
     BigReal y8("-36547854.3614");
