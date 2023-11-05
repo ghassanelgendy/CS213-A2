@@ -1,4 +1,4 @@
-// File: Source.cpp
+// File: A2_Task2_S21_20220239_20220470_20220133.cpp
 // Purpose: This file contains the 'main' function. Program execution begins and ends there.
 // Authors: Ghassan Elgendy - Rawan Ehab - Jana Ramadan
 // IDs:	       20220239     -  20220133  -   20220470
@@ -60,8 +60,9 @@ int main() {
     cout << "d = " << d << " (Expected: 246.912)" << endl;
 
     cout << '\n';
-    // Test 7: Subtraction Operator
-    BigReal e("0.0");
+    // Test 7: Assignment Operator
+    BigReal e;
+    e = "0.0";
     cout << "Test 7: Subtraction Operator" << endl;
     cout << "e = " << e << " (Expected: 0)" << endl;
 
