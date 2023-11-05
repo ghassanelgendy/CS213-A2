@@ -60,8 +60,14 @@ int main() {
     cout << "d = " << d << " (Expected: 246.912)" << endl;
 
     cout << '\n';
+<<<<<<< Updated upstream
     // Test 7: Subtraction Operator
     BigReal e("0.0");
+=======
+    // Test 7: Assignment Operator
+    BigReal e;
+    e = "0.0";
+>>>>>>> Stashed changes
     cout << "Test 7: Subtraction Operator" << endl;
     cout << "e = " << e << " (Expected: 0)" << endl;
 
