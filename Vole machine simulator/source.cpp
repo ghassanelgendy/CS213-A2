@@ -1,59 +1,52 @@
-#include "register.h"
-#include "memory.h"
-#include "register.cpp"
-#include "Memory.cpp"
+#include "Machine.h"
+///#include "Register.cpp"
+///#include "Memory.cpp"
+//Ba2et elcases fel menu
 
-string toHex(int dec){
-    string answer;
-    if ( dec < 10){
-        answer = to_string(dec);
-    }
-    else{
-        char deff ='A';
-        deff += dec - 10;
-        answer = deff;
-    }
-    return answer;
-
+void makeChoice(Machine chosenMachine) {
+	start:
+	short choice;
+	cout << "Pick: \n"
+		<< "1. Clear memory\n2. Load data from file\n3. Run\n4. Single Step\n5. Halt\n6. Help\n7. Display stats\n";
+	cin >> choice;
+	string s;
+	switch (choice)
+	{
+	case 1:
+		chosenMachine.clear();
+		break;
+	case 2:
+		cout << "Enter Filename: ";
+		cin >> s;
+		chosenMachine.loadInstructions(s);
+		break;
+	case 3:
+		chosenMachine.excute();
+		break;
+	case 5:
+		abort();
+		break;
+	case 6:
+		cout << "Op-code: 1 -> RXY - load R w/ bits from memory XY\n"
+			 << "Op-code: 2 -> RXY - load R w/ bits XY\n"
+			 << "Op-code: 3 -> RXY - store bits in R in memory address XY\n"
+			 << "Op-code: 3 -> R00 - DISPLAY Rigester R on screen\n"
+			 << "Op-code: 4 -> 0RS - move bits in register R to register S\n"
+			 << "Op-code: 5 -> RST - add bits in register S and register T and put it in R ( two’s complement representations )\n"
+			 << "Op-code: 6 -> RST - add bits in register S and register T and put it in R\n"
+			 << "Op-code: B -> RXY - if bits in R == bits in register 0, jump to memory address XY\n"
+			 << "Op-code: C -> HALT\n";
+		break;
+	case 7:
+		chosenMachine.print();
+		break;
+	default:
+		cout << "Wrong Entry!\n";
+		break;
+	}
+	goto start;
 }
-
 int main(){
-   Register register1("00","33");
-
-//   register1.setValue("55");
-//   cout<< register1.getAddress() << " : " << register1.getValue()<<endl;
-
-   Memory memory1("01","A3");
-   memory1.setValue("B4");
-//   cout<< memory1.getAddress() << " : " << memory1.getValue()<<endl;
-
-
-   vector <Register> registry(16);
-   short  count = 0;
-
-   for(auto &i : registry){
-       i.setAddress('0'+toHex(count++));
-       i.setValue("00");
-   }
-   for(auto i : registry){
-      cout << i.getAddress() << ':' << i.getValue()<<endl;
-   }
-count =0;
-
-    vector<vector<Memory>> memory(16, vector<Memory>(16));
-
-    for (int i = 0; i < 16; ++i) {
-        for (int j = 0; j < 16; ++j) {
-            string address = toHex(i) + toHex(j); // Concatenate i and j directly
-            memory[i][j].setAddress(address);
-            memory[i][j].setValue("00");
-        }
-    }
-
-    for (const auto &i : memory) {
-        for ( auto j : i)
-            cout << j.getAddress() << ':' << j.getValue() << "  ";
-        cout<<endl;
-    }
-
+	Machine vole;
+	makeChoice(vole);
 }
