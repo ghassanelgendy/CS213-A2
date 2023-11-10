@@ -1,5 +1,4 @@
-
-#include "register.h"
+#include "Register.h"
 
 Register::Register( string Address, string Value) {
     value = Value;
