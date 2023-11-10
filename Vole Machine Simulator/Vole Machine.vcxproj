@@ -128,16 +128,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Byte.cpp" />
+    <ClCompile Include="Counter.cpp" />
     <ClCompile Include="Instruction.cpp" />
     <ClCompile Include="IR.cpp" />
+    <ClCompile Include="Machine.cpp" />
     <ClCompile Include="Memory.cpp" />
-    <ClCompile Include="Vole Machine.cpp" />
+    <ClCompile Include="Register.cpp" />
+    <ClCompile Include="source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Byte.h" />
+    <ClInclude Include="Counter.h" />
     <ClInclude Include="Instruction.h" />
     <ClInclude Include="IR.h" />
+    <ClInclude Include="Machine.h" />
     <ClInclude Include="Memory.h" />
+    <ClInclude Include="Register.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
