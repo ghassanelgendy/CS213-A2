@@ -1,13 +1,18 @@
 #include "Instruction.h"
 
 
+Instruction::Instruction()
+{
+	
+}
+
 Instruction::Instruction(string instIn) :operand("")
 {
 	regex pattern("0x");
 	string result = regex_replace(instIn, pattern, "");
 	opCode = result[0];
 	operand = operand + result[2] + result[4] + result[5];
-	cout << "opcode: " << opCode << endl << "operand: " << operand;
+	//cout << "opcode: " << opCode << endl << "operand: " << operand;
 }
 
 bool Instruction::validateInstruction()
@@ -27,4 +32,19 @@ bool Instruction::validateInstruction()
 			return 0;
 	}
 	return isValid;
+}
+
+string Instruction::getCode()
+{
+	return (opCode + operand);
+}
+
+char Instruction::getOpCode()
+{
+	return opCode;
+}
+
+string Instruction::getOperand()
+{
+	return operand;
 }

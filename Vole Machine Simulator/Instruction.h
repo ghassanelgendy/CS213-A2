@@ -9,10 +9,11 @@ protected:
 	char opCode;  
 	string operand;
 public:
+	Instruction();
 	Instruction(string instIn);
 	bool validateInstruction();
-	void addInstruction();
-	string toHex();
-	unsigned short toBinary();
+	string getCode();
+	char getOpCode();
+	string getOperand();
 };
 
