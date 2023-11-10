@@ -1,8 +1,11 @@
 #pragma once
 #include "Instruction.h"
-class IR : Instruction
+class IR : public Instruction
 {
+public:
+	IR();
+	IR(string instIn);
 	void setInstruction(Instruction inst);
-	Instruction getInstruction();
+	string getInstruction();
 };
 
