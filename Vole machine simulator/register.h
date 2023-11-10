@@ -7,7 +7,6 @@ using namespace std;
 class Register {
     string value;
     string address;
-
 public:
     Register();
     Register( string Address,string Value);
@@ -15,6 +14,8 @@ public:
    void setAddress(string Address);
    string getValue();
    string getAddress();
+   void clearReg();
+
 };
 
 

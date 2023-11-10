@@ -17,6 +17,11 @@ string Register::getAddress() {
     return address;
 }
 
+void Register::clearReg()
+{
+    value = "00";
+}
+
 void Register::setAddress(string Address) {
     address = Address;
 
