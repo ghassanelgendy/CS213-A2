@@ -1,19 +1,23 @@
 #include "Register.h"
 
-Register::Register( string Address, string Value) {
+Register::Register(string Address, string Value)
+{
     value = Value;
     address = Address;
 }
 
-void Register::setValue(string Value) {
-     value = Value;
+void Register::setValue(string Value)
+{
+    value = Value;
 }
 
-string Register::getValue() {
+string Register::getValue()
+{
     return value;
 }
 
-string Register::getAddress() {
+string Register::getAddress()
+{
     return address;
 }
 
@@ -22,10 +26,9 @@ void Register::clearReg()
     value = "00";
 }
 
-void Register::setAddress(string Address) {
+void Register::setAddress(string Address)
+{
     address = Address;
-
 }
 
-Register::Register(){address = "" , value = "";};
-
+Register::Register() { address = "", value = ""; }

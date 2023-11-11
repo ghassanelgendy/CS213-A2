@@ -1,22 +1,20 @@
 #include "Machine.h"
-#include"Machine.cpp"
-#include "Register.cpp"
-#include "Instruction.cpp"
-#include "IR.cpp"
-#include "Memory.cpp"
+#include <stdlib.h>
+
 //Ba2et elcases fel menu
 
 void makeChoice(Machine chosenMachine) {
 	start:
 	short choice;
-	cout << "Pick: \n"
-		<< "1. Clear memory\n2. Load data from file\n3. Run\n4. Single Step\n5. Halt\n6. Help\n7. Display stats\n";
+	cout<<"Please pick : \n"
+		<< " 1. Clear memory\n 2. Load data from file\n 3. Run\n 4. Single Step\n 5. Halt\n 6. Help\n 7. Display stats\n";
 	cin >> choice;
+	if (choice < 7 ) exit(404); 
 	string s;
 	switch (choice)
 	{
 	case 1:
-		chosenMachine.clear();
+		//chosenMachine.clear();
 		break;
 	case 2:
 		cout << "Enter Filename: ";
@@ -27,7 +25,7 @@ void makeChoice(Machine chosenMachine) {
 		chosenMachine.excute();
 		break;
 	case 5:
-		abort();
+		exit(1);
 		break;
 	case 6:
 		cout << "Op-code: 1 -> RXY - load R w/ bits from memory XY\n"
@@ -51,8 +49,7 @@ void makeChoice(Machine chosenMachine) {
 }
 
 int main(){
+	cout << "\t\t====================[Welcome to vole machine simulator]====================\n";
 	Machine vole;
 	makeChoice(vole);
-
-
 }
