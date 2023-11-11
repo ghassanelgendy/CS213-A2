@@ -1,6 +1,9 @@
 #include "Machine.h"
-///#include "Register.cpp"
-///#include "Memory.cpp"
+#include"Machine.cpp"
+#include "Register.cpp"
+#include "Instruction.cpp"
+#include "IR.cpp"
+#include "Memory.cpp"
 //Ba2et elcases fel menu
 
 void makeChoice(Machine chosenMachine) {
