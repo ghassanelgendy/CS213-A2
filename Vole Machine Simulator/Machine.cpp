@@ -1,4 +1,6 @@
 #include "Machine.h"
+#include <bitset>
+#include <sstream>
 
 Machine::Machine() 
 {
@@ -29,6 +31,8 @@ void Machine::excute()
         string XY{ instructions[i].getOperand().substr(1, 2) }; //XY
         unsigned short R{ toDec(instructions[i].getOperand()[0]) }, //Register num
             X{toDec(XY[0])}, Y{ toDec(XY[1]) }; //X,Y as numbers
+            string s,t;
+            int S,T;
         ///Displaying current Instruction
         instructionReg.setInstruction(instructions[i]);
         cout << "IR : " << instructionReg.getInstruction() << endl;
@@ -51,10 +55,15 @@ void Machine::excute()
             reg[Y].setValue(reg[X].getValue());
             break;
         case('5'):
-            cout << "RST - add bits in register S and register T and put it in R ( two’s complement representations )\n";
+            s = reg[X].getValue();
+            t  = reg[Y].getValue();
+            S = toDec(s) ,  T = toDec(t);
+            s= int_to_binary(S); t = int_to_binary(T);
+           reg[R].setValue(binaryToHex(addBinary(s,t)));
             break;
         case('6'):
             cout << "RST - add bits in register S and register T and put it in R\n";
+//            int s = toDec(reg[XY[0]].getValue()) ;
             break;
         case('B'):
             cout << "RXY - if bits in R == bits in register 0, jump to memory address XY\n";
@@ -181,3 +190,36 @@ unsigned short Machine::toDec(char& hexChar) {
     else
         return result - 7;
 } //overriding toDec
+
+long Machine::binary_to_int(string Binary_num){
+    long ans{0};
+    for (int i = 0; i < (int)Binary_num.size(); ++i) if(Binary_num[i] == '1') ans+=(1 << (Binary_num.size() - i - 1));
+    return ans;
+}
+string Machine::int_to_binary(long long num){
+    string binary_num{""};
+    while(num>=1){
+        if((num&1)) binary_num="1"+binary_num;
+        else binary_num="0"+binary_num;
+        num/=2;
+    }
+    while (binary_num.size() < 8) {
+        binary_num = "0" + binary_num;
+    }
+    return binary_num;
+}
+string Machine::addBinary(string a, string b) {
+    bitset<8> bitsetA(a);
+    bitset<8> bitsetB(b);
+    bitset<8> result = bitsetA.to_ulong() + bitsetB.to_ulong();
+
+    return result.to_string();
+}
+
+string Machine::binaryToHex(const string& binaryString) {
+    bitset<32> bitset(binaryString);
+    unsigned long long decimalValue = bitset.to_ullong();
+    ostringstream stream;
+    stream << hex << decimalValue;
+    return stream.str();
+}
