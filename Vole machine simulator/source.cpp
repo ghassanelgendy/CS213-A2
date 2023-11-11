@@ -48,11 +48,8 @@ void makeChoice(Machine chosenMachine) {
 	goto start;
 }
 
-int main(){
-	/*cout << "\t\t====================[Welcome to vole machine simulator]====================\n";
+int main() {
+	cout << "\t\t====================[Welcome to vole machine simulator]====================\n";
 	Machine vole;
-	makeChoice(vole);*/
-	char x{ 'F' };
-	cout<<Machine::toDec(x);
-	
+	makeChoice(vole);
 }

@@ -1,5 +1,5 @@
 #include "Machine.h"
-//toDec(XY[1] variable
+
 Machine::Machine() 
 {
     ///generating registery of 16
@@ -19,33 +19,36 @@ Machine::Machine()
         }
     }
 }
+
 void Machine::excute() 
 {
-    cout << "Excuting\n---------\n";
+    cout << "Excuting\n---------\nCurrent counter: ";
     for (size_t i = 0; i < instructions.size(); i++)
     {
+        string XY{ instructions[i].getOperand().substr(1, 2) }; //XY
+        unsigned short R{ toDec(instructions[i].getOperand()[0]) }, //Register num
+            X{toDec(XY[0])}, Y{ toDec(XY[1]) }; //X,Y as numbers
+        ///Displaying current Instruction
         instructionReg.setInstruction(instructions[i]);
         cout << "IR : " << instructionReg.getInstruction() << endl;
-        char regNum{ instructions[i].getOperand()[0] };
-        string XY = instructions[i].getOperand().substr(1,2);
         switch (instructions[i].getOpCode()) {
         case('1'):
-            reg[ toDec(regNum)].setValue(memory[toDec(XY[0])][toDec(XY[1])].getValue());
+            reg[R].setValue(memory[X][Y].getValue());
             break;
         case('2'):
-            reg[ toDec(regNum)].setValue(XY);
+            reg[R].setValue(XY);
             break;
         case('3'):
             if (XY == "00") {
-                memory[0][0].setValue(reg[toDec(regNum)].getValue());
+                memory[0][0].setValue(reg[R].getValue());
                 cout << "- DISPLAY\n";
                 cout<< memory[0][0].getValue()<<endl;
             }
             else
-                memory[toDec(XY[0])][toDec(XY[1])].setValue(reg[toDec(regNum)].getValue());
+                memory[X][Y].setValue(reg[R].getValue());
             break;
         case('4'):
-            reg[toDec(XY[1])].setValue(reg[toDec(XY[0])].getValue());
+            reg[Y].setValue(reg[X].getValue());
             break;
         case('5'):
             cout << "RST - add bits in register S and register T and put it in R ( two’s complement representations )\n";
@@ -58,7 +61,6 @@ void Machine::excute()
             break;
         case('C'):
             return;
-
         default:
             cout << "Wrong opcode\n";
         }
@@ -67,16 +69,24 @@ void Machine::excute()
 
 string Machine::toHex(int dec)
 {
-        string answer;
-        if (dec < 10) {
-            answer = to_string(dec);
+    string result;
+    if (dec < 10) {
+        result += static_cast<char>('0' + dec);
+    }
+    else {
+        // If the decimal number is 10 or greater, convert to hexadecimal
+        while (dec > 0) {
+            int remainder = dec % 16;
+            if (remainder < 10) {
+                result = static_cast<char>('0' + remainder) + result;
+            }
+            else {
+                result = static_cast<char>('A' + remainder - 10) + result;
+            }
+            dec /= 16;
         }
-        else {
-            char deff = 'A';
-            deff += dec - 10;
-            answer = deff;
-        }
-        return answer;
+    }
+    return result;
 }
 
 void Machine::print()
@@ -125,10 +135,8 @@ void Machine::loadInstructions(string filename)
             memory[j / 16][y].setValue(opCode.substr(0, 2));
         else
             memory[j / 16][y].setValue(opCode.substr(2, 2));
-
     }
 }
-
 
 void Machine::clear()
 {
@@ -141,12 +149,31 @@ void Machine::clear()
         i.clearReg();
     }
 }
-int Machine::toDec(char x) {
-    int result = x-'0';
-    if (result<=9){
+
+unsigned short Machine::toDec(string& hexString) {
+    int result = 0;
+
+    for (char x : hexString) {
+        if (isdigit(x)) {
+            result = result * 16 + (x - '0');
+        }
+        else if (isxdigit(x)) {
+            if (isupper(x)) {
+                result = result * 16 + (x - 'A' + 10);
+            }
+            else {
+                result = result * 16 + (x - 'a' + 10);
+            }
+        }
+    }
+    return result;
+}
+
+unsigned short Machine::toDec(char& hexChar) {
+    int result = hexChar - '0';
+    if (result <= 9) {
         return result;
     }
     else
-        return result-7;
-
-}
+        return result - 7;
+} //overriding toDec

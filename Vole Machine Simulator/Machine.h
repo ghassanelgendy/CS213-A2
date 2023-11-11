@@ -21,6 +21,7 @@ public:
 	void loadInstructions(string filename);
 	void clear();
 	static string toHex(int dec);
-	static int toDec(char x);
+	static unsigned short toDec(string& hexString);
+	static unsigned short toDec(char& hexChar);
 };
 
