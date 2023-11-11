@@ -24,10 +24,14 @@ Machine::Machine()
 
 void Machine::excute() 
 {
+    cout << "Enter counter (in Hex) to start from: ";
+    string cAddress;
+    cin >> cAddress;
+    counter.setCounterAddress(cAddress);
     cout << "\t\t==================================[Excuting]==================================\n";
     for (size_t i = 0; i < instructions.size(); i++)
     {
-        cout << "\n=====[Step " << i + 1<<"]===== \n\n";
+        cout << "\n=====[Counter: " << counter.getCounterAddress()<<"]===== \n\n";
         string XY{ instructions[i].getOperand().substr(1, 2) }; //XY
         unsigned short R{ toDec(instructions[i].getOperand()[0]) }, //Register num
             X{toDec(XY[0])}, Y{ toDec(XY[1]) }; //X,Y as numbers
@@ -73,6 +77,7 @@ void Machine::excute()
         default:
             cout << "Wrong opcode\n";
         }
+        counter.incrementCounter();
     }
 }
 

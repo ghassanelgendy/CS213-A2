@@ -1,24 +1,31 @@
 #include "Counter.h"
+#include "Machine.h"
 
 
-Counter::Counter() :currentAddress(0)
+
+Counter::Counter() :currentAddress("00")
 {
 }
-Counter::Counter(int startIn) :currentAddress(startIn)
+Counter::Counter(string startIn) 
 {
+	currentAddress = startIn;
 }
 
-void Counter::setCounterAddress(int curAddressIn)
+void Counter::setCounterAddress(string curAddressIn)
 {
 	currentAddress = curAddressIn; 
 }
 
 string Counter::getCounterAddress()
 {
-	return to_string(currentAddress);
+	return currentAddress;
 }
 
 void Counter::incrementCounter()
 {
-	currentAddress += 2;
+	string x = Machine::toHex(Machine::toDec(currentAddress) + 2);
+	if (x.size() == 1)
+		currentAddress = '0' + x;
+	else
+		currentAddress = x;
 }

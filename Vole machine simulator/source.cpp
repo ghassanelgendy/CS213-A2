@@ -1,5 +1,5 @@
 #include "Machine.h"
-#include "Machine.cpp"
+//#include "Machine.cpp"
 #include <stdlib.h>
 
 //Ba2et elcases fel menu

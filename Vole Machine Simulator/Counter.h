@@ -3,11 +3,11 @@
 using namespace std;
 class Counter 
 {
-	int currentAddress;
+	string currentAddress;
 public:
 	Counter();
-	Counter(int startIn);
-	void setCounterAddress(int curAddressIn);
+	Counter(string startIn);
+	void setCounterAddress(string curAddressIn);
 	string getCounterAddress();
 	void incrementCounter();
 };

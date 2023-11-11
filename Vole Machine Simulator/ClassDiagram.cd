@@ -1,17 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Class Name="Byte">
-    <Position X="5.5" Y="4" Width="1.25" />
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Machine">
+    <Position X="4" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Byte.h</FileName>
+      <HashCode>gkQAAAABABAAAgAEAAIAAABAAIAAAAFACAAAAAIAAAg=</HashCode>
+      <FileName>Machine.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Machine">
-    <Position X="2.5" Y="0.5" Width="2.5" />
+  <Class Name="Counter">
+    <Position X="7" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AkQAAAABAAAAAAAEAAIAAABAAAAAAAFACAAAAAIAAAg=</HashCode>
-      <FileName>Machine.h</FileName>
+      <HashCode>AIgAAAAAAAAAAAAAAAAAACAAAQABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Counter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Register">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAgACAAAAIAAAAAAAIBACAAAAAAAgAAAAA=</HashCode>
+      <FileName>Register.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
