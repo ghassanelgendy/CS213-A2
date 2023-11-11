@@ -18,7 +18,7 @@ string Counter::getCounterAddress()
 	return to_string(currentAddress);
 }
 
-void Counter::incrementCounter(Counter x)
+void Counter::incrementCounter()
 {
-	x.currentAddress += 2;
+	currentAddress += 2;
 }

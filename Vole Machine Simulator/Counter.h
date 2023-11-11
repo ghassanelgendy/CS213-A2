@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 using namespace std;
-class Counter
+class Counter 
 {
 	int currentAddress;
 public:
@@ -9,6 +9,6 @@ public:
 	Counter(int startIn);
 	void setCounterAddress(int curAddressIn);
 	string getCounterAddress();
-	static void incrementCounter(Counter x);
+	void incrementCounter();
 };
 

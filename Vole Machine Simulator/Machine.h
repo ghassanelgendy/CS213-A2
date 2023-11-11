@@ -17,11 +17,10 @@ class Machine
 public:
 	Machine();
 	void excute();
-	string toHex(int dec);
 	void print();
 	void loadInstructions(string filename);
 	void clear();
-    int toDec(char x);
-
+	static string toHex(int dec);
+	static int toDec(char x);
 };
 
