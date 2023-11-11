@@ -7,9 +7,9 @@ void makeChoice(Machine chosenMachine) {
 	start:
 	short choice;
 	cout<<"Please pick : \n"
-		<< " 1. Clear memory\n 2. Load data from file\n 3. Run\n 4. Single Step\n 5. Halt\n 6. Help\n 7. Display stats\n";
+		<< " 1. Clear memory\n 2. Load data from file\n 3. Run\n 4. Single Step\n 5. Halt\n 6. Help\n 7. Display stats\n-> ";
 	cin >> choice;
-	if (choice < 7 ) exit(404); 
+	if (choice > 7 ) exit(404); 
 	string s;
 	switch (choice)
 	{

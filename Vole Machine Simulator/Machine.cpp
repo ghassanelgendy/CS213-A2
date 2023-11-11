@@ -21,6 +21,7 @@ Machine::Machine()
 }
 void Machine::excute() 
 {
+    cout << "Excuting\n---------\n";
     for (size_t i = 0; i < instructions.size(); i++)
     {
         instructionReg.setInstruction(instructions[i]);
@@ -91,6 +92,7 @@ void Machine::print()
         cout << endl;
     }
 }
+
 //load instructions from file to memory
 void Machine::loadInstructions(string filename)
 {
@@ -104,9 +106,15 @@ void Machine::loadInstructions(string filename)
     else
     cout << f << " is opened\n";
     while (getline(file, g)) {
-        instructions.push_back(Instruction(g));
+        if (Instruction(g).validateInstruction()) {
+            instructions.push_back(Instruction(g));
+        }
+        else {
+            cout << "Instructions failed to load, Please make sure of the format!\n";
+            exit(500);
+        }
     }
-    cout << "\n---------\n";
+    cout << "---------\n";
 
     for (size_t i = 0, j = 0 , y=0; i < instructions.size() * 2; i++,y++, j++)
     {
