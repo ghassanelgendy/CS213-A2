@@ -13,6 +13,7 @@ class Machine
 	Memory memory[16][16];
 	Register reg[16];
 	IR instructionReg;
+	Counter counter;
 public:
 	Machine();
 	void excute();
