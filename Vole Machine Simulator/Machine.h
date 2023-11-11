@@ -20,6 +20,7 @@ public:
 	void print();
 	void loadInstructions(string filename);
 	void clear();
+    int toDec(char x);
 
 };
 

@@ -1,5 +1,5 @@
 #include "Machine.h"
-
+//toDec(XY[1] variable
 Machine::Machine() 
 {
     ///generating registery of 16
@@ -29,20 +29,22 @@ void Machine::excute()
         string XY = instructions[i].getOperand().substr(1,2);
         switch (instructions[i].getOpCode()) {
         case('1'):
-            cout << "RXY - load R w/ bits from memory XY\n";
+            reg[ toDec(regNum)].setValue(memory[toDec(XY[0])][toDec(XY[1])].getValue());
             break;
         case('2'):
-            cout << "RXY - load R w/ bits XY\n";
+            reg[ toDec(regNum)].setValue(XY);
             break;
         case('3'):
-            if (XY == "00")
+            if (XY == "00") {
+                memory[0][0].setValue(reg[toDec(regNum)].getValue());
                 cout << "- DISPLAY\n";
+                cout<< memory[0][0].getValue()<<endl;
+            }
             else
-                cout << "RXY - store bits in R in memory address XY\n";
+                memory[toDec(XY[0])][toDec(XY[1])].setValue(reg[toDec(regNum)].getValue());
             break;
         case('4'):
-            regNum = instructions[i].getOperand()[1];
-            cout << "0RS - move bits in register R to register S\n";
+            reg[toDec(XY[1])].setValue(reg[toDec(XY[0])].getValue());
             break;
         case('5'):
             cout << "RST - add bits in register S and register T and put it in R ( two’s complement representations )\n";
@@ -54,8 +56,8 @@ void Machine::excute()
             cout << "RXY - if bits in R == bits in register 0, jump to memory address XY\n";
             break;
         case('C'):
-            cout << "HALT";
-            break;
+            return;
+
         default:
             cout << "Wrong opcode\n";
         }
@@ -130,4 +132,13 @@ void Machine::clear()
     for (auto& i : reg) {
         i.clearReg();
     }
+}
+int Machine::toDec(char x) {
+    int result = x-'0';
+    if (result<=9){
+        return result;
+    }
+    else
+        return result-7;
+
 }
