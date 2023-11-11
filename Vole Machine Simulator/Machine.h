@@ -18,7 +18,7 @@ public:
 	Machine();
 	void excute();
 	void print();
-	void loadInstructions(string filename);
+	void loadInstructions();
 	void clear();
 	static string toHex(int dec);
 	static unsigned short toDec(string& hexString);
