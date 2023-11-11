@@ -22,9 +22,10 @@ Machine::Machine()
 
 void Machine::excute() 
 {
-    cout << "Excuting\n---------\nCurrent counter: ";
+    cout << "\t\t==================================[Excuting]==================================\n";
     for (size_t i = 0; i < instructions.size(); i++)
     {
+        cout << "\n=====[Step " << i + 1<<"]===== \n\n";
         string XY{ instructions[i].getOperand().substr(1, 2) }; //XY
         unsigned short R{ toDec(instructions[i].getOperand()[0]) }, //Register num
             X{toDec(XY[0])}, Y{ toDec(XY[1]) }; //X,Y as numbers
@@ -41,8 +42,7 @@ void Machine::excute()
         case('3'):
             if (XY == "00") {
                 memory[0][0].setValue(reg[R].getValue());
-                cout << "- DISPLAY\n";
-                cout<< memory[0][0].getValue()<<endl;
+                cout << "\n{{DISPLAY :"<< memory[0][0].getValue() <<"}}\n";
             }
             else
                 memory[X][Y].setValue(reg[R].getValue());
@@ -104,9 +104,13 @@ void Machine::print()
 }
 
 //load instructions from file to memory
-void Machine::loadInstructions(string filename)
+void Machine::loadInstructions()
 {
-    string f = filename + ".txt";
+    cout << "\t\t=============================[Loading File]=============================\n";
+    cout << "Enter Filename: ";
+    string f;
+    cin >> f;
+    f = f + ".txt";
     string g;
     ifstream file(f);
     if (file.fail()) {
