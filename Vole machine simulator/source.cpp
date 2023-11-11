@@ -49,7 +49,10 @@ void makeChoice(Machine chosenMachine) {
 	}
 	goto start;
 }
+
 int main(){
 	Machine vole;
 	makeChoice(vole);
+
+
 }
