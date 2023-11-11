@@ -105,13 +105,17 @@ void Machine::loadInstructions(string filename)
         instructions.push_back(Instruction(g));
     }
     cout << "\n---------\n";
-    for (size_t i = 0, j = 0; i < instructions.size() * 2; i++, j++)
+
+    for (size_t i = 0, j = 0 , y=0; i < instructions.size() * 2; i++,y++, j++)
     {
+        if (y==16)
+            y=0;
         string opCode{ instructions[i / 2].getCode() };
         if (!(j & 1))
-            memory[j / 16][i].setValue(opCode.substr(0, 2));
+            memory[j / 16][y].setValue(opCode.substr(0, 2));
         else
-            memory[j / 16][i].setValue(opCode.substr(2, 2));
+            memory[j / 16][y].setValue(opCode.substr(2, 2));
+
     }
 }
 
