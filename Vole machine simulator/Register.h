@@ -10,6 +10,7 @@ class Register
     string address;
 
 public:
+
     Register();
     Register(string Address, string Value);
     void setValue(string Value);

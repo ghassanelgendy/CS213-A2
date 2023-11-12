@@ -1,7 +1,8 @@
 #include "Machine.h"
 #include <bitset>
 #include <sstream>
-
+#include <cmath>
+ using namespace std;
 Machine::Machine() 
 {
     ///generating registery of 16
@@ -22,6 +23,48 @@ Machine::Machine()
     }
 }
 
+
+string Machine:: fractionToBinary(float fraction, int numBits) {
+    std::string binaryFraction = "";
+
+    for (int i = 0; i < numBits; ++i) {
+        fraction *= 2;
+        int intPart = static_cast<int>(fraction);
+        binaryFraction += std::to_string(intPart);
+        fraction -= intPart;
+    }
+
+    return binaryFraction;
+}
+
+string Machine:: floattobin(float value) {
+    string ans="";
+    if(value<0) ans+="1";else ans+="0";
+    int real=value;
+    float frac=value- real;
+    string realb= int_to_binary(real),fracb= fractionToBinary(frac,4);
+    while(realb[0]=='0')
+    {
+        realb.erase(0,1);
+    }
+    string ex= int_to_binary(((int)realb.size()+4));
+    while(ex[0]=='0')
+    {
+        ex.erase(0,1);
+    }
+    ans+=ex;
+    if(realb.size()<4)
+    {
+        for (int i = 0; i < fracb.size(); ++i) {
+            realb+=fracb[i];
+            if(realb.size()==4) break;
+        }
+    }
+    ans+=realb;
+    return ans;
+}
+
+
 void Machine::excute() 
 {
     cout << "Enter counter (in Hex) to start from: ";
@@ -40,6 +83,8 @@ void Machine::excute()
         ///Displaying current Instruction
         instructionReg.setInstruction(instructions[i]);
         cout << "IR : " << instructionReg.getInstruction() << endl;
+        s = reg[X].getValue();
+        t  = reg[Y].getValue();
         switch (instructions[i].getOpCode()) {
         case('1'):
             reg[R].setValue(memory[X][Y].getValue());
@@ -59,18 +104,18 @@ void Machine::excute()
             reg[Y].setValue(reg[X].getValue());
             break;
         case('5'):
-            s = reg[X].getValue();
-            t  = reg[Y].getValue();
             S = toDec(s) ,  T = toDec(t);
             s= int_to_binary(S); t = int_to_binary(T);
-           reg[R].setValue(binaryToHex(addBinary(s,t)));
+            reg[R].setValue(binaryToHex(addBinary(s,t)));
             break;
-        case('6'):
-            cout << "RST - add bits in register S and register T and put it in R\n";
-//            int s = toDec(reg[XY[0]].getValue()) ;
-            break;
-        case('B'):
-            cout << "RXY - if bits in R == bits in register 0, jump to memory address XY\n";
+            case('6'):
+                //to binary then floating then add them, the answer: from floating to binary then to hex
+                float x;
+                x = floattodec(int_to_binary(S)) + floattodec(int_to_binary(T));
+                cout<<toHex(binary_to_int(floattobin(x)))<<endl;
+                break;
+            case('B'):
+                cout << "RXY - if bits in R == bits in register 0, jump to memory address XY\n";
             break;
         case('C'):
             return;
@@ -227,4 +272,39 @@ string Machine::binaryToHex(const string& binaryString) {
     ostringstream stream;
     stream << hex << decimalValue;
     return stream.str();
+}
+float Machine::floattodec(string binary) {
+    string expo = binary.substr(1,3);
+    int Expo =  binary_to_int(expo);
+    Expo-= 4;
+    string mantessa = binary.substr(4);
+    string realPart ="";
+    if(Expo<0)
+    {
+        Expo= abs(Expo);
+        while(Expo)
+        {
+            mantessa= "0" +mantessa;
+            Expo--;
+        }
+    }
+    else {
+        for (int i = 0; i <Expo ; ++i) {
+            realPart+= mantessa[0];
+            mantessa.erase(0,1);
+        }
+    }
+    float ans=0.0;
+    if(realPart.size())
+    {
+        ans= binary_to_int(realPart);
+    }
+    for (int i = 1; i <= (int)mantessa.size(); ++i) {
+        if(mantessa[i-1]=='1') ans+=pow(2,-i);
+    }
+    return ans;
+}
+
+string Machine::float_to_binary(float num) {
+
 }
