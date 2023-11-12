@@ -109,7 +109,7 @@ void Machine::excute()
             reg[R].setValue(binaryToHex(addBinary(s,t)));
             break;
             case('6'):
-                //to binary then floating then add them, the answer: from floating to binary then to hex
+                //to binary then to floating then add them, the answer: from floating to binary then to hex
                 float x;
                 x = floattodec(int_to_binary(S)) + floattodec(int_to_binary(T));
                 cout<<toHex(binary_to_int(floattobin(x)))<<endl;

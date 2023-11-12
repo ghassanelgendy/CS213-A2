@@ -36,5 +36,6 @@ public:
     long binary_to_int(string Binary_num);
     float floattodec(string binary);
     string float_to_binary(float num);
+
 };
 
