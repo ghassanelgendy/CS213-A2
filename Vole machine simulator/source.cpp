@@ -56,6 +56,7 @@ string intt_to_binary(long long num){
     while (binary_num.size() < 8) {
         binary_num = "0" + binary_num;
     }
+
     return binary_num;
 }
 

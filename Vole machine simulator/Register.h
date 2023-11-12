@@ -19,4 +19,5 @@ public:
     string getAddress();
     void clearReg();
 };
+
 #endif

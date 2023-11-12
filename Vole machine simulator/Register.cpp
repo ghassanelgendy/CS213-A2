@@ -6,9 +6,9 @@ Register::Register(string Address, string Value)
     address = Address;
 }
 
-void Register::setValue(string Value)
-{
+void Register::setValue(string Value) {
     value = Value;
+
 }
 
 string Register::getValue()
