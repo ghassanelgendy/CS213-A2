@@ -1,24 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Machine">
-    <Position X="4" Y="0.5" Width="2.5" />
+    <Position X="3.75" Y="1.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>gkQAAAABABAAAgAEAAIAAABAAIAAAAFACAAAAAIAAAg=</HashCode>
+      <HashCode>gkQAIAABARAAAkAEAAIAAADBAKAEAAFACAAAAAIAIAg=</HashCode>
       <FileName>Machine.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Counter">
-    <Position X="7" Y="0.5" Width="1.5" />
+    <Position X="10.5" Y="1.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AIgAAAAAAAAAAAAAAAAAACAAAQABAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Counter.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Register">
-    <Position X="2" Y="0.5" Width="1.5" />
+    <Position X="7.25" Y="4.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAgACAAAAIAAAAAAAIBACAAAAAAAgAAAAA=</HashCode>
       <FileName>Register.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Instruction">
+    <Position X="0.75" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AYAABEAAAAAAAAAAAAABBAAAAAIIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Instruction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IR">
+    <Position X="0.75" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IAACAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IR.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Memory">
+    <Position X="7.25" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAgACAAAAIAAAAAAAIAACAAAgAAAgAAAAA=</HashCode>
+      <FileName>Memory.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
