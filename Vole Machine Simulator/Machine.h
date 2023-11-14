@@ -15,6 +15,7 @@
 using namespace std;
 class Machine
 {
+	bool steps;
 	vector <Instruction> instructions;
 	Memory memory[16][16];
 	Register reg[16];
@@ -26,6 +27,8 @@ public:
 	~Machine();
 
 	void excute();
+
+	void sigleStep(bool s);
 
 	void print();
 
@@ -51,6 +54,9 @@ public:
     
 	long binary_to_int(string Binary_num);
 
-	float floattodec(string binary);
-};
+	void excuteOne(Instruction instr, short x);
 
+	float floattodec(string binary);
+	
+	void fetch();
+};

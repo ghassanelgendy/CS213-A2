@@ -21,6 +21,10 @@ void makeChoice(Machine& chosenMachine) {
 	case 3:
 		chosenMachine.excute();
 		break;
+	case(4):
+		chosenMachine.sigleStep(1);
+		chosenMachine.fetch();
+		break;
 	case 5:
 		exit(1);
 		break;

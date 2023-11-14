@@ -29,6 +29,12 @@ Machine::Machine()
     }
 }
 
+
+
+void Machine:: sigleStep(bool s) {
+    steps = s;
+}
+
 ///Conversions
 string Machine:: fractionToBinary(float fraction, int numBits) {
     std::string binaryFraction = "";
@@ -189,6 +195,108 @@ float Machine::floattodec(string binary) {
 
 
 ///Fetch -> Loads in memory and with every fetch , copies the code to IR and ++Counter
+
+void Machine::excuteOne(Instruction instr, short x)
+{
+        cout << "\t\t==================================[Excuting of " << instr.getCode() << "]==================================\n";
+        cout << "\n=====[Counter: " << counter.getCounterAddress() << "]===== \n\n";
+        string XY{ instructions[x].getOperand().substr(1, 2) }; //XY
+        unsigned short R{ toDec(instructions[x].getOperand()[0]) }, //Register num
+            X{ toDec(XY[0]) }, Y{ toDec(XY[1]) }; //X,Y as numbers
+        string s, t;
+        int S, T;
+        ///Displaying current Instruction
+        instructionReg.setInstruction(instructions[x]);
+        cout << "IR : " << instructionReg.getInstruction() << endl;
+        s = reg[X].getValue();
+        t = reg[Y].getValue();
+        cout << "\t\t==================================[Decoding]" << instr.getCode() << "================================== \t\t\nOpcode : " << instr.getOpCode() << "\t\t\n R : " << instr.getOperand()[0] << "\t\t\n X : " << XY[0] << "\t\t\n Y : " << XY[1]<<endl;
+        switch (instructions[x].getOpCode()) {
+        case('1'):
+            reg[R].setValue(memory[X][Y].getValue());
+            counter.incrementCounter();
+            break;
+        case('2'):
+            reg[R].setValue(XY);
+            counter.incrementCounter();
+            break;
+        case('3'):
+            if (XY == "00") {
+                memory[0][0].setValue(reg[R].getValue());
+                cout << "\n{{DISPLAY :" << memory[0][0].getValue() << "}}\n";
+            }
+            else
+                memory[X][Y].setValue(reg[R].getValue());
+            counter.incrementCounter();
+            break;
+        case('4'):
+            reg[Y].setValue(reg[X].getValue());
+            counter.incrementCounter();
+            break;
+        case('5'):
+            S = toDec(s), T = toDec(t);
+            s = int_to_binary(S); t = int_to_binary(T);
+            reg[R].setValue(binaryToHex(addBinary(s, t)));
+            counter.incrementCounter();
+            break;
+        case('6'):
+            //to binary then to floating then add them, the answer: from floating to binary then to hex
+            float x;
+            S = toDec(s);
+            T = toDec(t);
+            x = floattodec(int_to_binary(S)) + floattodec(int_to_binary(T));
+            reg[R].setValue(toHex(binary_to_int(floattobin(x))));
+            counter.incrementCounter();
+            break;
+        case('B'):
+            cout << "RXY - if bits in R == bits in register 0, jump to memory address XY\n";
+            if (reg[R].getValue() == reg[0].getValue()) {
+                counter.setCounterAddress(XY);
+                string inst{ "" };
+                inst = inst + memory[toDec(XY[0])][toDec(XY[1])].getValue() + memory[toDec(XY[0])][(toDec(XY[1])) + 1].getValue();
+                x = toDec(counter.getCounterAddress());
+            }
+            else {
+                counter.incrementCounter();
+            }
+            break;
+        case('C'):
+            counter.incrementCounter();
+            cout << "HALTED\n\n";
+            return;
+        default:
+            cout << "Wrong opcode\n";
+        }
+}
+
+void Machine::fetch() {
+    if (instructions.empty()) {
+        cout << "Please Input file first.\n";
+        exit(404);
+    }
+    unsigned short x{ 0 };
+singleStep:
+    if (instructions[x].getCode() == "C000") {
+        cout << "HALT\n\n";
+        this->print();
+        exit(0);
+    }
+    if (steps) {
+        x++;
+        excuteOne(instructions[x],x);
+    }
+    cout << "Continue Y/N \n";
+    char in;
+    cin >> in;
+    in = tolower(in);
+    if (in == 'y') {
+        goto singleStep;
+    }
+    else {
+        return;
+    }
+}
+
 //load instructions from file to memory
 void Machine::loadInstructions()
 {
@@ -230,7 +338,6 @@ void Machine::loadInstructions()
     }
 }
 
-///Decode -> Tells the Opcode, R, X, Y, and the instructions hint
 
 
 ///Excute -> Bey excute.
@@ -306,13 +413,14 @@ void Machine::excute()
         case('C'):
             counter.incrementCounter();
             cout << "HALTED\n\n";
+                    this->print();
+
             return;
         default:
             cout << "Wrong opcode\n";
         }
     }
 }
-
 
 void Machine::print()
 {
