@@ -6,7 +6,7 @@ void IR::setInstruction(Instruction inst)
     operand = inst.getOperand();
 }
 IR::IR(){}
-IR::IR(string instIn) : Instruction(instIn){}
+IR::IR(string instIn,string a) : Instruction(instIn,a){}
 string IR::getInstruction()
 {
     string s{ "" };

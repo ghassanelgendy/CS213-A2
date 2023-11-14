@@ -6,9 +6,11 @@ Instruction::Instruction()
 	
 }
 
-Instruction::Instruction(string instIn) :operand("")
+Instruction::Instruction(string instIn, string a) :operand("")
 {
+	address = a;
 	regex pattern("0x");
+	string address;
 	string result = regex_replace(instIn, pattern, "");
 	opCode = result[0];
 	operand = operand + result[2] + result[4] + result[5];

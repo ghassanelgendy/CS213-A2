@@ -1,11 +1,9 @@
 #include "Machine.h"
-#include "Machine.cpp"
+//#include "Machine.cpp"
 #include <bitset>
 #include <stdlib.h>
 
-//Ba2et elcases fel menu
-
-void makeChoice(Machine chosenMachine) {
+void makeChoice(Machine& chosenMachine) {
 	start:
 	short choice;
 	cout<<"\nPlease pick : \n"
@@ -46,24 +44,9 @@ void makeChoice(Machine chosenMachine) {
 	}
 	goto start;
 }
-string intt_to_binary(long long num){
-    string binary_num{""};
-    while(num>=1){
-        if((num&1)) binary_num="1"+binary_num;
-        else binary_num="0"+binary_num;
-        num/=2;
-    }
-    while (binary_num.size() < 8) {
-        binary_num = "0" + binary_num;
-    }
-
-    return binary_num;
-}
 
 int main() {
 	cout << "\t\t====================[Welcome to vole machine simulator]====================\n";
-	Machine vole;
-	makeChoice(vole);
-//std::string binaryRepresentation = fractionToBinary(fractionPart, 4);
-//    cout<<floattobin(2.75);
+	Machine* vole = new Machine;
+	makeChoice(*vole); 
 }

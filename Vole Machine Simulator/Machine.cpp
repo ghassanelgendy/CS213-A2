@@ -3,6 +3,12 @@
 #include <sstream>
 #include <cmath>
  using namespace std;
+ 
+ Machine::~Machine()
+ {
+     delete[] this;
+ }
+
 Machine::Machine() 
 {
     ///generating registery of 16
@@ -23,7 +29,7 @@ Machine::Machine()
     }
 }
 
-
+///Conversions
 string Machine:: fractionToBinary(float fraction, int numBits) {
     std::string binaryFraction = "";
 
@@ -64,68 +70,6 @@ string Machine:: floattobin(float value) {
     return ans;
 }
 
-
-void Machine::excute() 
-{
-    cout << "Enter counter (in Hex) to start from: ";
-    string cAddress;
-    cin >> cAddress;
-    counter.setCounterAddress(cAddress);
-    cout << "\t\t==================================[Excuting]==================================\n";
-    for (size_t i = 0; i < instructions.size(); i++)
-    {
-        cout << "\n=====[Counter: " << counter.getCounterAddress()<<"]===== \n\n";
-        string XY{ instructions[i].getOperand().substr(1, 2) }; //XY
-        unsigned short R{ toDec(instructions[i].getOperand()[0]) }, //Register num
-            X{toDec(XY[0])}, Y{ toDec(XY[1]) }; //X,Y as numbers
-            string s,t;
-            int S,T;
-        ///Displaying current Instruction
-        instructionReg.setInstruction(instructions[i]);
-        cout << "IR : " << instructionReg.getInstruction() << endl;
-        s = reg[X].getValue();
-        t  = reg[Y].getValue();
-        switch (instructions[i].getOpCode()) {
-        case('1'):
-            reg[R].setValue(memory[X][Y].getValue());
-            break;
-        case('2'):
-            reg[R].setValue(XY);
-            break;
-        case('3'):
-            if (XY == "00") {
-                memory[0][0].setValue(reg[R].getValue());
-                cout << "\n{{DISPLAY :"<< memory[0][0].getValue() <<"}}\n";
-            }
-            else
-                memory[X][Y].setValue(reg[R].getValue());
-            break;
-        case('4'):
-            reg[Y].setValue(reg[X].getValue());
-            break;
-        case('5'):
-            S = toDec(s) ,  T = toDec(t);
-            s= int_to_binary(S); t = int_to_binary(T);
-            reg[R].setValue(binaryToHex(addBinary(s,t)));
-            break;
-            case('6'):
-                //to binary then to floating then add them, the answer: from floating to binary then to hex
-                float x;
-                x = floattodec(int_to_binary(S)) + floattodec(int_to_binary(T));
-                cout<<toHex(binary_to_int(floattobin(x)))<<endl;
-                break;
-            case('B'):
-                cout << "RXY - if bits in R == bits in register 0, jump to memory address XY\n";
-            break;
-        case('C'):
-            return;
-        default:
-            cout << "Wrong opcode\n";
-        }
-        counter.incrementCounter();
-    }
-}
-
 string Machine::toHex(int dec)
 {
     string result;
@@ -148,72 +92,7 @@ string Machine::toHex(int dec)
     return result;
 }
 
-void Machine::print()
-{
-    cout << "Registery: \n\n";
-    for (auto i : reg) {
-        cout << i.getAddress() << " : " << i.getValue() << endl;
-    }
-    cout <<"\nMemory: \n\n";
-    for (const auto& i : memory) {
-        for (auto j : i)
-            cout << j.getAddress() << ':' << j.getValue() << "  ";
-        cout << endl;
-    }
-}
-
-//load instructions from file to memory
-void Machine::loadInstructions()
-{
-    cout << "\t\t=============================[Loading File]=============================\n";
-    cout << "Enter Filename: ";
-    string f;
-    cin >> f;
-    f = f + ".txt";
-    string g;
-    ifstream file(f);
-    if (file.fail()) {
-        cout << f << " is not found!\n";
-        return;
-    }
-    else
-    cout << f << " is opened\n";
-    while (getline(file, g)) {
-        if (Instruction(g).validateInstruction()) {
-            instructions.push_back(Instruction(g));
-        }
-        else {
-            cout << "Instructions failed to load, Please make sure of the format!\n";
-            exit(500);
-        }
-    }
-    cout << "---------\n";
-
-    for (size_t i = 0, j = 0 , y=0; i < instructions.size() * 2; i++,y++, j++)
-    {
-        if (y==16)
-            y=0;
-        string opCode{ instructions[i / 2].getCode() };
-        if (!(j & 1))
-            memory[j / 16][y].setValue(opCode.substr(0, 2));
-        else
-            memory[j / 16][y].setValue(opCode.substr(2, 2));
-    }
-}
-
-void Machine::clear()
-{
-    for (int i = 0; i < 16; ++i) {
-        for (int j = 0; j < 16; ++j) {
-            memory[i][j].clearMemory();
-        }
-    }
-    for (auto& i : reg) {
-        i.clearReg();
-    }
-}
-
-unsigned short Machine::toDec(string& hexString) {
+unsigned short Machine::toDec(string hexString) {
     int result = 0;
 
     for (char x : hexString) {
@@ -241,23 +120,25 @@ unsigned short Machine::toDec(char& hexChar) {
         return result - 7;
 } //overriding toDec
 
-long Machine::binary_to_int(string Binary_num){
-    long ans{0};
-    for (int i = 0; i < (int)Binary_num.size(); ++i) if(Binary_num[i] == '1') ans+=(1 << (Binary_num.size() - i - 1));
+long Machine::binary_to_int(string Binary_num) {
+    long ans{ 0 };
+    for (int i = 0; i < (int)Binary_num.size(); ++i) if (Binary_num[i] == '1') ans += (1 << (Binary_num.size() - i - 1));
     return ans;
 }
-string Machine::int_to_binary(long long num){
-    string binary_num{""};
-    while(num>=1){
-        if((num&1)) binary_num="1"+binary_num;
-        else binary_num="0"+binary_num;
-        num/=2;
+
+string Machine::int_to_binary(long long num) {
+    string binary_num{ "" };
+    while (num >= 1) {
+        if ((num & 1)) binary_num = "1" + binary_num;
+        else binary_num = "0" + binary_num;
+        num /= 2;
     }
     while (binary_num.size() < 8) {
         binary_num = "0" + binary_num;
     }
     return binary_num;
 }
+
 string Machine::addBinary(string a, string b) {
     bitset<8> bitsetA(a);
     bitset<8> bitsetB(b);
@@ -273,38 +154,189 @@ string Machine::binaryToHex(const string& binaryString) {
     stream << hex << decimalValue;
     return stream.str();
 }
+
 float Machine::floattodec(string binary) {
-    string expo = binary.substr(1,3);
-    int Expo =  binary_to_int(expo);
-    Expo-= 4;
+    string expo = binary.substr(1, 3);
+    int Expo = binary_to_int(expo);
+    Expo -= 4;
     string mantessa = binary.substr(4);
-    string realPart ="";
-    if(Expo<0)
+    string realPart = "";
+    if (Expo < 0)
     {
-        Expo= abs(Expo);
-        while(Expo)
+        Expo = abs(Expo);
+        while (Expo)
         {
-            mantessa= "0" +mantessa;
+            mantessa = "0" + mantessa;
             Expo--;
         }
     }
     else {
-        for (int i = 0; i <Expo ; ++i) {
-            realPart+= mantessa[0];
-            mantessa.erase(0,1);
+        for (int i = 0; i < Expo; ++i) {
+            realPart += mantessa[0];
+            mantessa.erase(0, 1);
         }
     }
-    float ans=0.0;
-    if(realPart.size())
+    float ans = 0.0;
+    if (realPart.size())
     {
-        ans= binary_to_int(realPart);
+        ans = binary_to_int(realPart);
     }
     for (int i = 1; i <= (int)mantessa.size(); ++i) {
-        if(mantessa[i-1]=='1') ans+=pow(2,-i);
+        if (mantessa[i - 1] == '1') ans += pow(2, -i);
     }
     return ans;
 }
 
-string Machine::float_to_binary(float num) {
 
+///Fetch -> Loads in memory and with every fetch , copies the code to IR and ++Counter
+//load instructions from file to memory
+void Machine::loadInstructions()
+{
+    cout << "\t\t=============================[Loading File]=============================\n";
+    cout << "Enter Filename: ";
+    string f;
+    cin >> f;
+    f = f + ".txt";
+    string g;
+    ifstream file(f);
+    if (file.fail()) {
+        cout << f << " is not found!\n";
+        return;
+    }
+    else
+        cout << f << " is opened\n";
+    while (getline(file, g)) {
+        unsigned short x{ 0 };
+        if (Instruction(g, toHex(x)).validateInstruction()) {
+            x++;
+            instructions.push_back(Instruction(g,toHex(x)));
+        }
+        else {
+            cout << "Instructions failed to load, Please make sure of the format!\n";
+            exit(500);
+        }
+    }
+    cout << "---------\n";
+
+    for (size_t i = 0, j = 0, y = 0; i < instructions.size() * 2; i++, y++, j++)
+    {
+        if (y == 16)
+            y = 0;
+        string opCode{ instructions[i / 2].getCode() };
+        if (!(j & 1))
+            memory[j / 16][y].setValue(opCode.substr(0, 2));
+        else
+            memory[j / 16][y].setValue(opCode.substr(2, 2));
+    }
+}
+
+///Decode -> Tells the Opcode, R, X, Y, and the instructions hint
+
+
+///Excute -> Bey excute.
+void Machine::excute() 
+{
+    cout << "Enter counter (Hex) to start from: ";
+    string cAddress;
+    cin >> cAddress;
+    counter.setCounterAddress(cAddress);
+    cout << "\t\t==================================[Excuting]==================================\n";
+    for (size_t i = toDec(counter.getCounterAddress()); i < instructions.size(); i++)
+    {
+        cout << "\n=====[Counter: " << counter.getCounterAddress()<<"]===== \n\n";
+        string XY{ instructions[i].getOperand().substr(1, 2) }; //XY
+        unsigned short R{ toDec(instructions[i].getOperand()[0]) }, //Register num
+            X{toDec(XY[0])}, Y{ toDec(XY[1]) }; //X,Y as numbers
+            string s,t;
+            int S,T;
+        ///Displaying current Instruction
+        instructionReg.setInstruction(instructions[i]);
+        cout << "IR : " << instructionReg.getInstruction() << endl;
+        s = reg[X].getValue();
+        t  = reg[Y].getValue();
+        switch (instructions[i].getOpCode()) {
+        case('1'):
+            reg[R].setValue(memory[X][Y].getValue());
+            counter.incrementCounter();
+            break;
+        case('2'):
+            reg[R].setValue(XY);
+            counter.incrementCounter();
+            break;
+        case('3'):
+            if (XY == "00") {
+                memory[0][0].setValue(reg[R].getValue());
+                cout << "\n{{DISPLAY :"<< memory[0][0].getValue() <<"}}\n";
+            }
+            else
+                memory[X][Y].setValue(reg[R].getValue());
+            counter.incrementCounter();
+            break;
+        case('4'):
+            reg[Y].setValue(reg[X].getValue());
+            counter.incrementCounter();
+            break;
+        case('5'):
+            S = toDec(s) ,  T = toDec(t);
+            s= int_to_binary(S); t = int_to_binary(T);
+            reg[R].setValue(binaryToHex(addBinary(s,t)));
+            counter.incrementCounter();
+            break;
+        case('6'):
+                //to binary then to floating then add them, the answer: from floating to binary then to hex
+                float x;
+                S = toDec(s);
+                T = toDec(t);
+                x = floattodec(int_to_binary(S)) + floattodec(int_to_binary(T));
+                reg[R].setValue(toHex(binary_to_int(floattobin(x))));
+                counter.incrementCounter();
+                break;
+        case('B'):
+                cout << "RXY - if bits in R == bits in register 0, jump to memory address XY\n";
+                if (reg[R].getValue() == reg[0].getValue()) {
+                    counter.setCounterAddress(XY);
+                    string inst{""};
+                    inst = inst + memory[toDec(XY[0])][toDec(XY[1])].getValue() + memory[toDec(XY[0])][(toDec(XY[1]))+1].getValue();
+                    i = toDec(counter.getCounterAddress());
+                }
+                else {
+                    counter.incrementCounter();
+                }
+            break;
+        case('C'):
+            counter.incrementCounter();
+            cout << "HALTED\n\n";
+            return;
+        default:
+            cout << "Wrong opcode\n";
+        }
+    }
+}
+
+
+void Machine::print()
+{
+    cout << "Registery: \n\n";
+    for (auto i : reg) {
+        cout << i.getAddress() << " : " << i.getValue() << endl;
+    }
+    cout <<"\nMemory: \n\n";
+    for (const auto& i : memory) {
+        for (auto j : i)
+            cout << j.getAddress() << ':' << j.getValue() << "  ";
+        cout << endl;
+    }
+}
+
+
+void Machine::clear()
+{
+    for (int i = 0; i < 16; ++i) {
+        for (int j = 0; j < 16; ++j) {
+            memory[i][j].clearMemory();
+        }
+    }
+    for (auto& i : reg) {
+        i.clearReg();
+    }
 }

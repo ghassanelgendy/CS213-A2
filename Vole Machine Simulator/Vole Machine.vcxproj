@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Byte.cpp" />
     <ClCompile Include="Counter.cpp" />
     <ClCompile Include="Instruction.cpp" />
     <ClCompile Include="IR.cpp" />
@@ -137,7 +136,6 @@
     <ClCompile Include="source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Byte.h" />
     <ClInclude Include="Counter.h" />
     <ClInclude Include="Instruction.h" />
     <ClInclude Include="IR.h" />
