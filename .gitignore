@@ -5,3 +5,10 @@ BigReal/.vs/BigReal/v17/Browse.VC.db
 BigReal/.vs/BigReal/v17/.suo
 BigReal/.vs/BigReal/v17/Browse.VC.db
 BigReal/.vs/BigReal/v17/ipch/AutoPCH/df16fb41da7b2c93/BIGREAL.ipch
+*.pdb
+*.ilk
+*.recipe
+*.tlog
+*.idb
+*.obj
+*.APS
