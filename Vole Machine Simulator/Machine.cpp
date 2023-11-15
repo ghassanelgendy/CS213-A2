@@ -249,7 +249,6 @@ void Machine::excuteOne(Instruction instr, short x)
             counter.incrementCounter();
             break;
         case('B'):
-            cout << "RXY - if bits in R == bits in register 0, jump to memory address XY\n";
             if (reg[R].getValue() == reg[0].getValue()) {
                 counter.setCounterAddress(XY);
                 string inst{ "" };
@@ -399,7 +398,6 @@ void Machine::excute()
                 counter.incrementCounter();
                 break;
         case('B'):
-                cout << "RXY - if bits in R == bits in register 0, jump to memory address XY\n";
                 if (reg[R].getValue() == reg[0].getValue()) {
                     counter.setCounterAddress(XY);
                     string inst{""};
