@@ -1,0 +1,82 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Each team will implement its own version of the simulator.
+Data is taken as a file of space
+separated hex numbers representing the instructions,
+e.g. 0x1 0x0 0xFF means load R0 with
+memory content in location 255d.
+It is required to support these instructions only.
+Test your program on real Vole programs.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1.Input 2-hex (op-code operand)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+0.Machine
+1.Instructions
+  a.op-code (4-Bits)
+  b.operand (4-Bits)
+2.Prog. counter [4-Bits] address of the next instruction
+3.Registers [16 Makan] 0~f
+4.Memory (Stores program and data together)
+5.File with instructions
+6.Instruction set
+7.IR (current Instruction Register)
+8.Instruction 3R00 = Display on screen
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Cycle:
+Fetch
+Decode
+Execute -> goto the logic circuit reponsible.
+----------------------------
+~FETCH
+Starts with program counter
+Goes to counter's address in memory
+Validate instruction
+Take instruction (2-bytes) to IR 
+Increment counter by 2-bits 
+--
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Class Responsbility
+ ```  Name
+ ```  Attributes
+ ```  Methods
+ ```  Relations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Classes:
+1.Machine
+2.Registy
+3.Memory
+4.Instruction
+
+-Instruction 1-
+
+-Instruction 2-
+
+----------------------------
+
+0x2 0x0 0x06 -> 2006
+
+21 01
+
+Memory
+00 20
+01 06
+02 21
+03 01
+04 
+05   
+06   
+07    
+08     
+09        
+10       
+11            
+0A               
+0B            
+0C            
+0D           
+OE       
+OF      
+
+	
+
+ 
