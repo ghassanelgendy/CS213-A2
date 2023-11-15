@@ -1,3 +1,10 @@
+// File: Machine.h
+// Authors: Ghassan Elgendy - Rawan Ehab - Jana Ramadan
+// IDs:	       20220239     -  20220133  -   20220470
+// Section: S21
+// TA: Rana Abdelkader
+// Date: 15 Nov 2023
+
 #pragma once
 #include "Memory.h"
 #include "Register.h"
