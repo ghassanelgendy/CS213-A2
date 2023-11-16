@@ -32,4 +32,3 @@
   - Integration of a user-friendly interface for the simulator.
   - GUI support for all machine instructions.
   - Focus on ease of use and intuitive understanding of the simulator's functionalities.
-  Try it here 
