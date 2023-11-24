@@ -26,10 +26,9 @@
   - Utilization of static analysis tools (e.g., PVS Studio) for code assessment.
   - Report creation highlighting the tool experience, identified issues, and cleaned-up code submission.
 
-### Task 5: GUI for the Simulator
+### Task 5: GUI for the Simulator using WxWidgets
 - **Objective**: Develop a graphical user interface (GUI) for the Vole machine simulator.
 - **Features**:
   - Integration of a user-friendly interface for the simulator.
   - GUI support for all machine instructions.
   - Focus on ease of use and intuitive understanding of the simulator's functionalities.
-  Try it here 
