@@ -29,11 +29,14 @@ public:
         for (int i = 0; i < 16; ++i) {
             registerDisplay->Append("R" + wxString::Format("%X", i) + ": 00"); // Sample content
         }
+        memoryGrid->SetDefaultCellAlignment(wxALIGN_CENTER, wxALIGN_CENTER);
+
         //  control buttons 
         wxButton* runButton = new wxButton(this, wxID_ANY, "Run");
         wxButton* stopButton = new wxButton(this, wxID_ANY, "Fetch");
         wxButton* stepButton = new wxButton(this, wxID_ANY, "Step");
         wxButton* quitButton = new wxButton(this, wxID_ANY, "Quit");
+      
         //  load file button and bind an event
         wxButton* loadButton = new wxButton(this, wxID_ANY, "Load File");
         loadButton->Bind(wxEVT_BUTTON, &MachineSimulatorGUI::OnLoadFile, this);
