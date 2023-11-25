@@ -1,0 +1,13 @@
+﻿  App.cpp
+  Counter.cpp
+  Instruction.cpp
+  IR.cpp
+  Machine.cpp
+C:\Users\Ghassan Elgendy\Github\CS213-A2\Vole Machine Simulator\GUI\Machine.cpp(55,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Ghassan Elgendy\Github\CS213-A2\Vole Machine Simulator\GUI\Machine.cpp(70,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ghassan Elgendy\Github\CS213-A2\Vole Machine Simulator\GUI\Machine.cpp(188,28): warning C4244: '=': conversion from 'long' to 'float', possible loss of data
+C:\Users\Ghassan Elgendy\Github\CS213-A2\Vole Machine Simulator\GUI\Machine.cpp(191,47): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  Memory.cpp
+  Register.cpp
+  Generating Code...
+  VOLE GUI.vcxproj -> C:\Users\Ghassan Elgendy\Github\CS213-A2\Vole Machine Simulator\GUI\Debug\VOLE GUI.exe
