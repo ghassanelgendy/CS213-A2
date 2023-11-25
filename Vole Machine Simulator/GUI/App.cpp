@@ -36,7 +36,7 @@ public:
         wxButton* stopButton = new wxButton(this, wxID_ANY, "Fetch");
         wxButton* stepButton = new wxButton(this, wxID_ANY, "Step");
         wxButton* quitButton = new wxButton(this, wxID_ANY, "Quit");
-      
+        
         //  load file button and bind an event
         wxButton* loadButton = new wxButton(this, wxID_ANY, "Load File");
         loadButton->Bind(wxEVT_BUTTON, &MachineSimulatorGUI::OnLoadFile, this);
@@ -58,7 +58,7 @@ public:
         wxBoxSizer* mainSizer = new wxBoxSizer(wxHORIZONTAL);
         wxBoxSizer* leftSizer = new wxBoxSizer(wxVERTICAL);
         wxBoxSizer* rightSizer = new wxBoxSizer(wxVERTICAL);
-        leftSizer->Add(memoryGrid, 1, wxEXPAND | wxALL, 10);
+        leftSizer->Add(memoryGrid, 0, wxEXPAND | wxALL, 5);
         rightSizer->Add(irDisplay, 0, wxEXPAND | wxALL, 5);
         rightSizer->Add(registerDisplay, 1, wxEXPAND | wxALL, 5);
         rightSizer->Add(runButton, 0, wxALIGN_CENTER | wxALL, 5);
@@ -150,7 +150,19 @@ public:
 class MyApp : public wxApp {
 public:
     virtual bool OnInit() {
-        MachineSimulatorGUI* simulator = new MachineSimulatorGUI("Machine Simulator", wxDefaultPosition, wxSize(800, 700));
+        MachineSimulatorGUI* simulator = new MachineSimulatorGUI("Machine Simulator", wxDefaultPosition, wxSize(900, 700));
+        
+        wxMenuBar* menuBar = new wxMenuBar;
+        wxMenu* fileMenu = new wxMenu;
+
+        fileMenu->Append(wxID_OPEN, wxT("&Open..."), wxT("Opens a file"));
+
+        fileMenu->AppendSeparator();
+        fileMenu->Append(wxID_EXIT, wxT("E&xit"), wxT("Quits the program"));
+        menuBar->Append(fileMenu, wxT("&File"));
+
+        simulator->SetMenuBar(menuBar);
+
         simulator->Show(true);
         return true;
     }
