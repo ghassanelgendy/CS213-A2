@@ -13,12 +13,10 @@
 #define usn unsigned short
 
 BigReal::BigReal() : integer(""), fraction(""), isDot(true), sign('+'){ }
-
 BigReal::BigReal(const string& realString) : isDot(true), sign('+')
 {
 	*this = realString;
 }
-
 bool BigReal::isValidReal(const string& realString)
 {
 	if (regex_match(realString, regex("[+-]?\\d*\\.?\\d*"))) return true; //using regex to validate the number
@@ -27,7 +25,6 @@ bool BigReal::isValidReal(const string& realString)
 		exit(900);
 	}
 }
-
 BigReal& BigReal::operator =(const string& realString) {
 	if (isValidReal(realString)) {
 		string temp;
@@ -43,7 +40,6 @@ BigReal& BigReal::operator =(const string& realString) {
 	}
 	return *this;
 }
-
 ostream& operator<<(ostream& output, const BigReal& BigR) //overloading the output operator
 {
 	if (BigR.sign == '-') output << BigR.sign;
@@ -111,12 +107,10 @@ bool BigReal::operator>(BigReal otherBigReal)
 	}
 	return isBigger;
 }
-
 bool BigReal::operator<(BigReal otherBigReal)
 {
 	return (!(*this > otherBigReal) && !(*this == otherBigReal)); //if not greater than and not equal then it's definitely less than
 }
-
 bool BigReal::operator==(BigReal& otherBigReal)
 {
 	return (removeLead().integer == otherBigReal.removeLead().integer &&    //checks if integer part is equal
@@ -138,7 +132,6 @@ void BigReal::Pad(BigReal& a, BigReal& b) //makes both BigReals have the same si
 		a.fraction.insert(a.fraction.size(), b.fraction.size() - a.fraction.size(), '0');
 	}
 }
-
 istream& operator>>(istream& input, BigReal& bigR) //overloading the input operator
 {
 	string input_str;
@@ -146,7 +139,6 @@ istream& operator>>(istream& input, BigReal& bigR) //overloading the input opera
 	bigR = BigReal(input_str);
 	return input;
 }
-
 BigReal BigReal::operator+(BigReal& otherBigReal){
     BigReal value;
 	Pad(*this, otherBigReal);
@@ -195,7 +187,6 @@ BigReal BigReal::operator+(BigReal& otherBigReal){
 	if (value.fraction.empty()) { value.fraction = "0"; }; //if it's just fraction, add '0' to integer part
 	return value;
 }
-
 BigReal BigReal::operator-(BigReal& otherBigReal) {
 	BigReal value;
 	BigReal a{ *this }, b{otherBigReal};
