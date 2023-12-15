@@ -4,11 +4,6 @@
 #include "Instruction.h"
 #include "Counter.h"
 #include "IR.h"
-//#include "Memory.cpp"
-//#include "Register.cpp"
-//#include "Instruction.cpp"
-//#include "Counter.cpp"
-//#include "IR.cpp"
 #include <fstream>
 #include <vector>
 #include <deque>
